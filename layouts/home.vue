@@ -1,7 +1,7 @@
 <script setup>
 import { useBackground } from '~/composables/useBackground'
 
-// onMounted(useBackground)
+onMounted(useBackground)
 const route = useRoute()
 const router = useRouter()
 const online = useOnline()

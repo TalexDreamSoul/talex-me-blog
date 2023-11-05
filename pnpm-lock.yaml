@@ -35,6 +35,12 @@ dependencies:
   js-yaml:
     specifier: ^4.1.0
     version: 4.1.0
+  p5:
+    specifier: ^1.8.0
+    version: 1.8.0
+  vanta:
+    specifier: ^0.5.24
+    version: 0.5.24
 
 devDependencies:
   '@antfu/eslint-config':
@@ -55,6 +61,9 @@ devDependencies:
   '@pinia/nuxt':
     specifier: ^0.4.11
     version: 0.4.11(rollup@2.79.1)(typescript@5.2.2)(vue@3.3.4)
+  '@types/p5':
+    specifier: ^1.7.2
+    version: 1.7.2
   '@unocss/eslint-config':
     specifier: ^0.56.4
     version: 0.56.4(eslint@8.50.0)(typescript@5.2.2)
@@ -3774,6 +3783,10 @@ packages:
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
+    dev: true
+
+  /@types/p5@1.7.2:
+    resolution: {integrity: sha512-39WkTu/2aQyYVSyBEIZb7XTE6t1sZtHskes4ZOlilY5hqWKR+xlx5VUWS66QE2EORJWYLiHfaPcEQCfDIdlWaA==}
     dev: true
 
   /@types/resolve@1.17.1:
@@ -9047,6 +9060,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /p5@1.8.0:
+    resolution: {integrity: sha512-LHzRRl+aWEZVXmK+L9TDRNw5zm90wvwMdY7yTmsFkdNeXrU9n2KSZbonCTXkyGgriguovxJrDDgyhkynOxWB1A==}
+    dev: false
+
   /pacote@17.0.4:
     resolution: {integrity: sha512-eGdLHrV/g5b5MtD5cTPyss+JxOlaOloSMG3UwPMAvL8ywaLJ6beONPF40K4KKl/UI6q5hTKCJq5rCu8tkF+7Dg==}
     engines: {node: ^16.14.0 || >=18.0.0}
@@ -11299,6 +11316,10 @@ packages:
     dependencies:
       builtins: 5.0.1
     dev: true
+
+  /vanta@0.5.24:
+    resolution: {integrity: sha512-fvieEbHy1ZS23zrcX+topzqAgA4Uct1enngOEWLFBgs9TtOf6RDFOYatH7KSVdrABzQDMCQ5myQy+nTSZZwLzg==}
+    dev: false
 
   /vfile-message@4.0.2:
     resolution: {integrity: sha512-jRDZ1IMLttGj41KcZvlrYAaI3CfqpLpfpf+Mfig13viT6NKvRzWZ+lXz0Y5D60w6uJIBAOGq9mSHf0gktF0duw==}

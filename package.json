@@ -20,6 +20,7 @@
     "@nuxt/devtools": "^0.8.5",
     "@nuxtjs/color-mode": "^3.3.0",
     "@pinia/nuxt": "^0.4.11",
+    "@types/p5": "^1.7.2",
     "@unocss/eslint-config": "^0.56.4",
     "@unocss/nuxt": "^0.56.4",
     "@unocss/preset-icons": "^0.57.1",
@@ -42,6 +43,8 @@
     "@milkdown/transformer": "^7.3.1",
     "axios": "^1.6.0",
     "dayjs": "^1.11.10",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "p5": "^1.8.0",
+    "vanta": "^0.5.24"
   }
 }
