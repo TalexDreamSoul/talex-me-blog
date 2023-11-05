@@ -24,7 +24,7 @@ export async function useBackground() {
     width: '100%',
     height: '100%',
     zIndex: '-1',
-    opacity: '.5',
+    opacity: '.15',
     overflow: 'hidden',
   })
 

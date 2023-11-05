@@ -209,7 +209,7 @@ const asides = reactive([
   cursor: pointer;
   overflow: hidden;
   border-radius: 50%;
-  backdrop-filter: brightness(110%);
+  backdrop-filter: brightness(110%) blur(18px);
   box-shadow: 2px 2px 8px 2px var(--major-color-light);
 }
 
@@ -266,7 +266,7 @@ const asides = reactive([
 
   border-radius: 8px;
   box-shadow: 2px 2px 8px 2px var(--major-color-light);
-  backdrop-filter: brightness(120%);
+  backdrop-filter: brightness(120%)  blur(18px);
 }
 
 .dark .ArticleIndex .Main {
@@ -295,7 +295,7 @@ const asides = reactive([
 
   border-radius: 8px;
   box-shadow: 2px 2px 8px 2px var(--major-color-light);
-  backdrop-filter: brightness(110%);
+  backdrop-filter: brightness(110%) blur(18px);
 }
 
 .dark .ArticleIndex .Addon .Box {
