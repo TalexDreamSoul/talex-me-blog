@@ -39,7 +39,8 @@ export async function useBackground() {
 
     setTimeout(() => {
       window._bgInit = true
-      window.VANTA.TOPOLOGY({
+
+      const effect = window.VANTA.TOPOLOGY({
         el: '#Blog-BackView',
         mouseControls: true,
         touchControls: true,
@@ -51,6 +52,21 @@ export async function useBackground() {
         color: '#2676D8',
         backgroundColor: '#00000000',
       })
+
+      const nuxt = document.querySelector('.Home-Main')!
+
+      const observer = new MutationObserver((mutations, observer) => {
+        console.log(nuxt, mutations, observer)
+        effect.resize()
+      })
+
+      observer.observe(nuxt, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+      })
+
+      window._effectResize = () => effect.resize()
     }, 500)
   }
 

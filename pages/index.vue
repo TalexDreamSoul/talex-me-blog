@@ -134,7 +134,7 @@ const contactLists = reactive([
 
   left: 50%;
   min-width: 30%;
-  max-width: 720px;
+  max-width: 65ch;
 
   box-sizing: border-box;
   transform: translateX(-50%);

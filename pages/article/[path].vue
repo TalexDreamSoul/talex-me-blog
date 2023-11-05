@@ -47,6 +47,12 @@ onMounted(async () => {
 
     useSticky(addon.value, /* header.clientHeight +  */addon.value.offsetTop)
     useSticky(aside.value, /* header.clientHeight +  */aside.value.offsetTop)
+
+    setTimeout(() => {
+      window._effectResize?.()
+
+      console.log(window._effectResize)
+    }, 200)
   }
   catch (e) {
     article.error = e
@@ -97,7 +103,7 @@ const asides = reactive([
 
 <template>
   <div class="ArticleIndex">
-    <div ref="aside" class="Aside">
+    <div ref="aside" class="Aside only-pc-display">
       <div v-for="(item, index) in asides" :key="index" class="Aside-Item" @click="item.func">
         <p :class="item.icon" />
         <span>{{ item.title }}</span>
@@ -112,7 +118,7 @@ const asides = reactive([
           </span>
           <span v-else class="waiting" />
         </h1>
-        <div v-if="article.header" flex items-center gap-4>
+        <div v-if="article.header" class="Main-Header-Tags" flex items-center gap-4>
           <span class="copyright tag">
             Original
           </span>
@@ -153,7 +159,7 @@ const asides = reactive([
       <ArticleMilkContent v-else-if="article.body" :content="article.body" @outline="handleOutline" />
     </div>
 
-    <div ref="addon" class="Addon">
+    <div ref="addon" class="Addon only-pc-display">
       <div v-if="article.header" class="Box">
         <p>RELATIVE TAGS</p>
         <span v-for="(tag, index) in article.tags" :key="index" mr-2 op-75 class="tag">
@@ -310,11 +316,31 @@ const asides = reactive([
 
   gap: 2rem;
 
-  width: 70%;
+  left: 50%;
+
+  min-width: 65ch;
+  max-width: 135ch;
   /* height: auto; */
   height: calc(100% + 5.5rem);
 
-  left: 15%;
+  transform: translateX(-50%);
 
+}
+
+@media (max-width: 768px) {
+  .ArticleIndex {
+    padding-top: 0;
+
+    width: 100%;
+    min-width: unset;
+  }
+
+  .Main-Header-Tags {
+    display: flex;
+    flex-direction: column;
+
+    align-items: self-start;
+    zoom: .75;
+  }
 }
 </style>

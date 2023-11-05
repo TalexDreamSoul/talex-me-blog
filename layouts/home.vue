@@ -12,22 +12,27 @@ const menus = reactive({
     {
       label: 'Home',
       path: '/',
+      icon: 'i-carbon-home',
     },
     {
       label: 'Contents',
       path: '/contents',
+      icon: 'i-carbon-table-of-contents',
     },
     {
       label: 'Projects',
       path: '/projects/list',
+      icon: 'i-carbon-ibm-cloud-projects',
     },
     {
       label: 'BlogCasts',
       path: '/blogcasts',
+      icon: 'i-carbon-watsonx-governance',
     },
     {
       label: 'Demo',
       path: '/demo',
+      icon: 'i-carbon-ibm-cloud-security-compliance-center-workload-protection',
     },
   ],
 })
@@ -80,7 +85,7 @@ function handleClick(index, path) {
         TalexMeBlog
       </div>
       <div flex>
-        <ul h-16 flex items-center>
+        <ul class="only-pc-display" h-16 flex items-center>
           <TouchHeadBtn
             v-for="(item, index) in menus.list"
             :key="index" :focus="index === menus.ind" :style="`--d: ${(index + 1) * 0.075}s`"
@@ -89,10 +94,17 @@ function handleClick(index, path) {
             {{ item.label }}
           </TouchHeadBtn>
         </ul>
+        <ul class="only-pe-display" 1 h-16 flex items-center>
+          <li
+            v-for="(item, index) in menus.list" :key="index"
+            :class="item.icon" :style="`--d: ${(index + 1) * 0.075}s;color: ${index === menus.ind ? 'var(--text-color)' : 'var(--text-color-light)'}`"
+            @click="handleClick(index, item.path)"
+          />
+        </ul>
         <Footer />
       </div>
     </div>
-    <div class="Home-Main">
+    <div class="Home-Main" relative h-full>
       <slot />
       <div class="mx-auto mt-5 text-center text-sm opacity-25">
         <Suspense>
@@ -148,5 +160,11 @@ function handleClick(index, path) {
 
 .dark .Home-Header {
   background-color: #00000050;
+}
+
+@media (max-width: 768px) {
+  .Home-Header {
+    position: sticky;
+  }
 }
 </style>

@@ -70,9 +70,8 @@ async function handleBack() {
 
     <div class="Main">
       <div
-        v-for="(item, index) in view.list"
-        :key="index" my-4 flex class="Main-Item fadein" :style="`--d: ${index * .025}s`"
-        @click="handleClick(item)"
+        v-for="(item, index) in view.list" :key="index" my-4 flex class="Main-Item fadein"
+        :style="`--d: ${index * .025}s`" @click="handleClick(item)"
       >
         <span mr-1 mt-.5>
           <i v-if="item.type === 'file'" i-carbon-document block />
@@ -84,7 +83,10 @@ async function handleBack() {
         </span>
       </div>
 
-      <div v-if="view.path.includes('/')" class="Main-Item fadein" :style="`--d: ${(view.list.length * .025) + .5}s`" @click="handleBack">
+      <div
+        v-if="view.path.includes('/')" class="Main-Item fadein" :style="`--d: ${(view.list.length * .025) + .5}s`"
+        @click="handleBack"
+      >
         cd ..
       </div>
     </div>
@@ -109,9 +111,14 @@ async function handleBack() {
 }
 
 .Main-Item {
+  display: flex;
+
   color: var(--text-color-light);
 
   cursor: pointer;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .fadein {
@@ -134,7 +141,7 @@ async function handleBack() {
 
   flex: 1;
 
-  width: 100%;
+  width: auto;
 
   border-radius: 8px;
   /* backdrop-filter: brightness(130%); */
@@ -156,11 +163,15 @@ async function handleBack() {
 
   gap: 2rem;
 
-  width: 30%;
-  /* height: auto; */
   height: calc(100% + 5.5rem);
 
-  left: 35%;
+  left: 50%;
+  min-width: 30%;
+  max-width: 65ch;
+
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  /* height: auto; */
 
 }
 </style>

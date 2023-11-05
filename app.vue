@@ -86,4 +86,16 @@ html.dark {
     left: 120%;
   }
 }
+
+@media (min-width: 768px) {
+  .only-pe-display {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .only-pc-display {
+    display: none !important;
+  }
+}
 </style>
