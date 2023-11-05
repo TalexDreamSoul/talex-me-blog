@@ -337,7 +337,7 @@ const asides = reactive([
 
   .Main-Header-Tags {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
 
     align-items: self-start;
     zoom: .75;
