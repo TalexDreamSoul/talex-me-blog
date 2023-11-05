@@ -342,5 +342,9 @@ const asides = reactive([
     align-items: self-start;
     zoom: .75;
   }
+
+  .MilkContent {
+    max-width: unset !important;
+  }
 }
 </style>
