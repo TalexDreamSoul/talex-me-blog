@@ -340,7 +340,7 @@ const asides = reactive([
     /* flex-direction: column; */
 
     align-items: self-start;
-    zoom: .75;
+    zoom: .65;
   }
 
   .MilkContent {
