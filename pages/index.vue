@@ -41,7 +41,7 @@ const contactLists = reactive([
         Dreaming up ideas and making them realized is where my passion lies. You can find my <strong>full projects list
           here</strong>.
         My idol is <strong>Anthony Fu</strong> who created lots of utils. I also do some video cutting, painting and UI
-        design.
+        designing.
       </div>
 
       <div my-4 class="fadein" style="--d: .335s">

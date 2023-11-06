@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { useArticle } from '~/composables/article'
 import { useSticky } from '~/composables/sticky'
+import { useDynamicCode } from '~/composables/hook'
 
 definePageMeta({
   layout: 'home',
@@ -17,7 +18,7 @@ const router = useRouter()
 const article = reactive<any>({})
 const addon = ref<HTMLElement | null>(null)
 const aside = ref<HTMLElement | null>(null)
-const speaker = ref({
+const speaker = ref<any>({
   utter: null,
   play: false,
 })
@@ -45,8 +46,8 @@ onMounted(async () => {
     // get header clientHeight
     // const header = document.querySelector('.Home-Header') as HTMLElement
 
-    useSticky(addon.value, /* header.clientHeight +  */addon.value.offsetTop)
-    useSticky(aside.value, /* header.clientHeight +  */aside.value.offsetTop)
+    useSticky(addon.value!, /* header.clientHeight +  */addon.value!.offsetTop)
+    useSticky(aside.value!, /* header.clientHeight +  */aside.value!.offsetTop)
 
     setTimeout(() => {
       window._effectResize?.()
@@ -96,14 +97,16 @@ const asides = reactive([
   {
     title: 'Share',
     icon: 'i-carbon-share',
-    func: () => { },
+    func: () => {
+      useDynamicCode(location.href)
+    },
   },
 ])
 </script>
 
 <template>
   <div class="ArticleIndex">
-    <div ref="aside" class="Aside only-pc-display">
+    <div ref="aside" relative h-full class="Aside only-pc-display">
       <div v-for="(item, index) in asides" :key="index" class="Aside-Item" @click="item.func">
         <p :class="item.icon" />
         <span>{{ item.title }}</span>
@@ -162,7 +165,7 @@ const asides = reactive([
     <div ref="addon" class="Addon only-pc-display">
       <div v-if="article.header" class="Box">
         <p>RELATIVE TAGS</p>
-        <span v-for="(tag, index) in article.tags" :key="index" mr-2 op-75 class="tag">
+        <span v-for="(tag, index) in article.tags" :key="index" style="background-color: #F4BF7540;color: #AeAeAe" mr-2 op-75 class="tag">
           {{ tag }}
         </span>
       </div>

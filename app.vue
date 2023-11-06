@@ -14,7 +14,9 @@ useHead({
 </template>
 
 <style>
-html, body , #__nuxt{
+html,
+body,
+#__nuxt {
   position: relative;
 
   min-height: 100vh;
@@ -25,12 +27,24 @@ html, body , #__nuxt{
   color: var(--text-color);
 
   --theme-color: #2676D8;
+
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2');
 }
 
 html {
   background: #f6f6f6;
 
-  --major-color:#ffffff;
+  --major-color: #ffffff;
   --major-color-light: #eeeeee75;
   --major-color-lighter: #eeeeee50;
   --major-color-lightest: #eeeeee25;
@@ -40,7 +54,7 @@ html {
 }
 
 html.dark {
-  background: #161616;
+  background: #111111;
 
   --major-color: #000000;
   --major-color-light: #00000075;

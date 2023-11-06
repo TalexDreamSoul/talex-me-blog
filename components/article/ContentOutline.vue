@@ -48,7 +48,7 @@ function handleScroll() {
       // }
     }
     else {
-      if (rect.top > rect.height) {
+      if (rect.top >= rect.height) {
         ind = i
         break
       }

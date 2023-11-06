@@ -43,6 +43,13 @@ onMounted(async () => {
 .MilkContent {
   padding: 4px 12px;
 
+  color: var(--text-color-light);
+
   max-width: calc(100vw - 30%);
+}
+
+.MilkContent h1, .MilkContent h2, .MilkContent h3, .MilkContent h4,
+.MilkContent h5, .MilkContenth h6 {
+  color: var(--text-color);
 }
 </style>
