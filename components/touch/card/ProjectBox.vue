@@ -54,14 +54,31 @@ const props = defineProps(['item'])
 
   cursor: pointer;
   align-items: center;
-  border-radius: 12px;
   box-sizing: border-box;
+
+  position: relative;
 }
 
-.ProjectBox:hover {
+.ProjectBox::before {
+  content: "";
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  left: 0;
+  top: 0;
+
+  opacity: 0;
+  transition: opacity .25s;
+  border-radius: 12px;
+  filter: invert(100%);
+  background-color: var(--major-color-lightest);
+}
+
+.ProjectBox:hover::before {
   opacity: 1;
 
-  background-color: var(--major-color-lightest);
-  backdrop-filter: blur(10px) brightness(150%);
+  backdrop-filter: blur(18px) brightness(1%);
 }
 </style>
