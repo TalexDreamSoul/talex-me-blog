@@ -16,20 +16,20 @@ class Point {
     this.x = radius / 2 + this.radius * Math.cos(rad)
     this.y = radius / 2 + this.radius * Math.sin(rad)
 
-    this.size = 1 // getRandom(1, 3)
+    this.size = 1 // getRandom(1, 1)
   }
 
   draw() {
     const darkMode = document.querySelector('html.dark')
 
     this.ctx.beginPath()
-    this.ctx.fillStyle = /* '#2676D850' */ darkMode ? '#eeeeee50' : '#5445544d'
+    this.ctx.fillStyle = /* '#2676D850' */ darkMode ? '#eeeeeeA0' : '#5445544d'
     this.ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI)
     this.ctx.fill()
   }
 
   moveTo(tx, ty) {
-    const duration = getRandom(100, 2000)
+    const duration = getRandom(100, 1800)
 
     const sx = this.x
     const sy = this.y
@@ -67,7 +67,7 @@ function getPoints(imageData: any) {
 
   const points = []
 
-  const gap = 1
+  const gap = 2
 
   for (let i = 0; i < width; i += gap) {
     for (let j = 0; j < height; j += gap) {
