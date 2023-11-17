@@ -115,10 +115,10 @@ function redirect(url: string) {
 .fades {
   opacity: 0;
 
-  animation: fade .25s var(--t) cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+  animation: fades .25s var(--t) cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
 }
 
-@keyframes fade {
+@keyframes fades {
   from {
     opacity: 0;
   }
