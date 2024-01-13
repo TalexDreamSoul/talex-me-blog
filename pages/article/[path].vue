@@ -115,7 +115,7 @@ const asides = reactive([
 
     <div px-8 py-8 class="Main">
       <div class="Main-Header">
-        <h1 font-bol4 font-size-10>
+        <h1 font-bol4 font-size-10 class="Main-Header-Title">
           <span v-if="article.header?.title">
             {{ article.header.title }}
           </span>
@@ -160,12 +160,25 @@ const asides = reactive([
         <p>{{ article.error }}</p>
       </div>
       <ArticleMilkContent v-else-if="article.body" :content="article.body" @outline="handleOutline" />
+
+      <div class="Main-Copyright">
+        <p>Copyright © 2024 {{ article.header?.author }}. All rights reserved.</p>
+        <p>Except this article said above, all rights are reserved.</p>
+        <p>Reproduction and plagiarism of this article in any form are strictly prohibited</p>
+        <p>The article is distributed under the AGPL (GNU Affero General Public License)</p>
+        <p>on an "AS IS" basis, without any warranties or conditions, either express or implied.</p>
+        <p>For detailed permissions and restrictions, please refer to the license.</p>
+        <p>For more information, please visit <a op-50 style="color: red" href="https://github.com/TalexDreamSoul/tds.io">tds.io</a></p>
+      </div>
     </div>
 
     <div ref="addon" class="Addon only-pc-display">
       <div v-if="article.header" class="Box">
         <p>RELATIVE TAGS</p>
-        <span v-for="(tag, index) in article.tags" :key="index" style="background-color: #F4BF7540;color: #AeAeAe" mr-2 op-75 class="tag">
+        <span
+          v-for="(tag, index) in article.tags" :key="index" style="background-color: #F4BF7540;color: #AeAeAe" mr-2
+          op-75 class="tag"
+        >
           {{ tag }}
         </span>
       </div>
@@ -201,6 +214,31 @@ const asides = reactive([
 </template>
 
 <style>
+.Main {
+  .Main-Header-Title {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+
+      top: 10%;
+      left: 0;
+      height: 80%;
+      width: .25rem;
+
+      border-radius: 50px;
+      background-color: var(--theme-color);
+    }
+
+    text-indent: .5rem;
+  }
+  .Main-Copyright {
+    color: #AeAeAe;
+    font-size: .75rem;
+  }
+}
+
 .Aside .Aside-Item {
   position: relative;
   margin: 1rem 0;
@@ -275,7 +313,7 @@ const asides = reactive([
 
   border-radius: 8px;
   box-shadow: 2px 2px 8px 2px var(--major-color-light);
-  backdrop-filter: brightness(120%)  blur(18px);
+  backdrop-filter: brightness(120%) blur(18px);
 }
 
 .dark .ArticleIndex .Main {

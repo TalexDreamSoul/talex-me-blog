@@ -81,4 +81,9 @@ const props = defineProps(['item'])
 
   backdrop-filter: blur(18px) brightness(1%);
 }
+
+.ProjectBox:hover {
+
+  backdrop-filter: blur(18px) saturate(180%);
+}
 </style>
