@@ -181,7 +181,7 @@ const asides = reactive([
       <div v-if="article.header" class="Box">
         <p>RELATIVE TAGS</p>
         <span
-          v-for="(tag, index) in article.tags" :key="index" style="box-shadow: 1px 1px 2px 1px #F4BF7580;background-color: #F4BF7540;color: #0A0A0A" mr-2
+          v-for="(tag, index) in article.tags" :key="index" style="box-shadow: 1px 1px 2px 1px #F4BF7580;background-color: #F4BF7540;color: #A8A8A8" mr-2
           op-75 class="tag"
         >
           {{ tag }}
