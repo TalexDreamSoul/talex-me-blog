@@ -37,7 +37,9 @@
     "@milkdown/core": "^7.3.1",
     "@milkdown/ctx": "^7.3.1",
     "@milkdown/plugin-listener": "^7.3.1",
+    "@milkdown/plugin-prism": "^7.3.3",
     "@milkdown/preset-commonmark": "^7.3.1",
+    "@milkdown/preset-gfm": "^7.3.3",
     "@milkdown/prose": "^7.3.1",
     "@milkdown/theme-nord": "^7.3.1",
     "@milkdown/transformer": "^7.3.1",
@@ -45,6 +47,7 @@
     "dayjs": "^1.11.10",
     "js-yaml": "^4.1.0",
     "p5": "^1.8.0",
+    "prism-themes": "^1.9.0",
     "qrcode": "^1.5.3",
     "vanta": "^0.5.24"
   }

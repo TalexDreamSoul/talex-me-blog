@@ -43,11 +43,14 @@ onMounted(async () => {
 
     Object.assign(article, data)
 
-    // get header clientHeight
+    // @ts-expect-error no need
+    window._article = article
+
+    // // get header clientHeight
     // const header = document.querySelector('.Home-Header') as HTMLElement
 
-    useSticky(addon.value!, /* header.clientHeight +  */addon.value!.offsetTop)
-    useSticky(aside.value!, /* header.clientHeight +  */aside.value!.offsetTop)
+    // // useSticky(addon.value!, header.clientHeight + addon.value!.offsetTop)
+    // useSticky(aside.value!, header.clientHeight + aside.value!.offsetTop)
 
     setTimeout(() => {
       window._effectResize?.()
@@ -315,10 +318,10 @@ const asides = reactive([
   justify-content: center;
 }
 
-.ArticleIndex aside {
-  width: 15%;
+.ArticleIndex .Aside {
+  position: sticky;
 
-  backdrop-filter: brightness(110%);
+  top: 60px;
 }
 
 .ArticleIndex .Main {
@@ -339,7 +342,9 @@ const asides = reactive([
 
 .ArticleIndex .Addon {
   z-index: 1;
-  position: relative;
+  position: sticky;
+
+  top: 80px;
 
   width: 20%;
   height: 100%;

@@ -18,8 +18,6 @@ async function refreshList() {
 
   const list = await useLists(view.value.path)
 
-  console.log(list)
-
   view.value.list = list
 }
 
@@ -78,8 +76,11 @@ async function handleBack() {
           <i v-else i-carbon-folder block />
         </span>
         {{ item.name }}
-        <span v-if="item.type === 'file'" class="tag" style="background-color: #FFD14;transform: scale(.75);opacity: .25">
+        <span v-if="item.type === 'file'" class="tag" style=";transform: scale(.75);opacity: .25">
           {{ calcReadingTime(item.size) }} min
+        </span>
+        <span v-if="item.cpp" class="tag" style="background-color: #FFD140;transform: scale(.75);opacity: .25">
+          CODES
         </span>
       </div>
 
@@ -117,7 +118,7 @@ async function handleBack() {
 
   cursor: pointer;
 
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
@@ -137,7 +138,7 @@ async function handleBack() {
 
 .Contents .Main {
   position: relative;
-  padding: 8px 12px;
+  padding: 8px 10rem;
 
   flex: 1;
 

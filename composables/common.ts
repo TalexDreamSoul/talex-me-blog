@@ -19,3 +19,11 @@ export function createDebounceFunc<P extends any[], R>(fn: (...args: P) => R, du
     }, duration)
   }
 }
+
+export function copy(text: string) {
+  if (navigator.clipboard)
+    navigator.clipboard.writeText(text)
+
+  else
+    dom.execCommand('copy', false, text)
+}

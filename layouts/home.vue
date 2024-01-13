@@ -6,6 +6,10 @@ const route = useRoute()
 const router = useRouter()
 const online = useOnline()
 
+const article = ref({
+  enable: false,
+})
+
 const menus = reactive({
   ind: -1,
   list: [
@@ -48,7 +52,7 @@ function handleKeyDown(event) {
 
   const { key } = event
 
-  ;[...menus.list].forEach((k, i) => {
+    ;[...menus.list].forEach((k, i) => {
     if (k.label[0].toLowerCase() === key.toLowerCase()) {
       menus.ind = i
 
@@ -59,6 +63,7 @@ function handleKeyDown(event) {
 
 onMounted(() => {
   document.addEventListener('keydown', handleKeyDown)
+  document.addEventListener('scroll', handleScroll)
 
   refreshFocus(route)
 
@@ -66,7 +71,28 @@ onMounted(() => {
     refreshFocus(to)
   })
 })
-onUnmounted(() => document.removeEventListener('keydown', handleKeyDown))
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeyDown)
+  document.removeEventListener('scroll', handleScroll)
+})
+
+function handleScroll() {
+  const _article = window._article
+  if (window.scrollY < 100 || !_article) {
+    article.value.enable = false
+  }
+
+  else {
+    const maxHeight = document.body.clientHeight
+
+    const per = (window.scrollY + 900) / maxHeight
+
+    article.value._per = per
+
+    Object.assign(article.value, _article)
+    article.value.enable = true
+  }
+}
 
 function refreshFocus(route) {
   menus.list.forEach((item, index) => {
@@ -83,29 +109,39 @@ function handleClick(index, path) {
 </script>
 
 <template>
-  <main relative h-full w-full>
+  <main :class="{ article: article.enable }" relative h-full w-full>
     <!-- sticky -->
     <div top-0 w-full flex justify-between class="Home-Header">
       <div flex items-center pl-4 font-bold>
         TalexMeBlog
       </div>
       <div flex>
-        <ul class="only-pc-display" h-16 flex items-center>
-          <TouchHeadBtn
-            v-for="(item, index) in menus.list"
-            :key="index" :focus="index === menus.ind" :style="`--d: ${(index + 1) * 0.075}s`"
-            @click="handleClick(index, item.path)"
-          >
-            {{ item.label }}
-          </TouchHeadBtn>
-        </ul>
-        <ul class="only-pe-display" 1 h-16 flex items-center>
-          <li
-            v-for="(item, index) in menus.list" :key="index"
-            :class="item.icon" :style="`--d: ${(index + 1) * 0.075}s;color: ${index === menus.ind ? 'var(--text-color)' : 'var(--text-color-light)'}`"
-            @click="handleClick(index, item.path)"
-          />
-        </ul>
+        <div class="Header-Default">
+          <ul class="only-pc-display" h-16 flex items-center>
+            <TouchHeadBtn
+              v-for="(item, index) in menus.list" :key="index" :focus="index === menus.ind"
+              :style="`--d: ${(index + 1) * 0.075}s`" @click="handleClick(index, item.path)"
+            >
+              {{ item.label }}
+            </TouchHeadBtn>
+          </ul>
+          <ul class="only-pe-display" h-16 flex items-center>
+            <li
+              v-for="(item, index) in menus.list" :key="index" :class="item.icon"
+              :style="`--d: ${(index + 1) * 0.075}s;color: ${index === menus.ind ? 'var(--text-color)' : 'var(--text-color-light)'}`"
+              @click="handleClick(index, item.path)"
+            />
+          </ul>
+        </div>
+        <div v-if="article.header" class="Header-Article">
+          <h1> {{ article.header.title }}</h1>
+          <span class="tag">
+            {{ Math.ceil(article.body.length / 1100) }} min
+          </span>
+          <div class="percentage">
+            <div class="percentage-bar" :style="`width: ${Math.round(article._per * 100)}%`" />
+          </div>
+        </div>
         <Footer />
       </div>
     </div>
@@ -134,6 +170,65 @@ function handleClick(index, path) {
 </template>
 
 <style>
+.percentage {
+  position: relative;
+
+  width: 120px;
+  height: 20px;
+
+  opacity: .75;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--major-color);
+}
+
+.percentage-bar {
+  position: relative;
+
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: .75;
+  border-radius: 8px 0 0 8px;
+  background-color: var(--theme-color);
+}
+
+.article .Header-Default {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.Header-Default {
+  transition: .25s;
+}
+
+.Header-Article {
+  position: absolute;
+  display: flex;
+
+  gap: 1rem;
+  height: 100%;
+  right: 15%;
+
+  align-items: center;
+
+  opacity: 0;
+  transition: .25s;
+  transform: translateY(10px);
+}
+
+.Header-Article h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.article .Header-Article {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
 .Home-Header li {
   margin-right: 1rem;
   padding: 0 4px;
@@ -156,11 +251,14 @@ function handleClick(index, path) {
 
 .Home-Header {
   z-index: 1;
+  position: sticky;
+
+  top: 0;
 
   box-sizing: border-box;
 
   background-color: #ffffff50;
-  backdrop-filter: blur(16px) brightness(120%) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%) brightness(120%);
 }
 
 .dark .Home-Header {
