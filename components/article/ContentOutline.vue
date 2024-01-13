@@ -86,7 +86,7 @@ async function handleClick(index) {
 
   await target.scrollIntoView({
     behavior: 'smooth',
-    block: 'start',
+    block: 'center',
     inline: 'nearest',
   })
 

@@ -85,7 +85,7 @@ function handleScroll() {
   else {
     const maxHeight = document.body.clientHeight
 
-    const per = window.scrollY / (maxHeight - 900)
+    const per = window.scrollY / (maxHeight - 950)
 
     article.value._per = per
 
@@ -139,7 +139,9 @@ function handleClick(index, path) {
             {{ Math.ceil(article.body.length / 1100) }} min
           </span>
           <div class="percentage">
-            <div class="percentage-bar" :style="`width: ${Math.round(article._per * 100)}%`" />
+            <div class="percentage-bar" :style="`width: ${Math.round(article._per * 100)}%`">
+            <span>{{Math.round(article._per * 100)}}%</span>
+            </div>
           </div>
         </div>
         <Footer />
@@ -193,6 +195,15 @@ function handleClick(index, path) {
   opacity: .75;
   border-radius: 8px 0 0 8px;
   background-color: var(--theme-color);
+}
+
+.percentage-bar span {
+  position: absolute;
+
+  right: 5px;
+  top: 2px;
+
+  font-size: 12px;
 }
 
 .article .Header-Default {

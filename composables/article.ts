@@ -50,8 +50,10 @@ export async function useLists(path = '') {
 
   for (const _this of res) {
     const { name, type }: { name: string; type: string } = _this
-    if (type !== 'file')
+    if (type !== 'file') {
+      map[name] = _this
       continue
+    }
 
     // 去掉后缀 获取名字 （只去掉最后一个.)
     const _name = name.split('.').slice(0, -1).join('.')
