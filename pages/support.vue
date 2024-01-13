@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'home',
-  select: 'Support',
+  select: 'Sponsor',
 })
 
 const platforms = reactive([
