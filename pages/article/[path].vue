@@ -168,7 +168,12 @@ const asides = reactive([
         <p>The article is distributed under the AGPL (GNU Affero General Public License)</p>
         <p>on an "AS IS" basis, without any warranties or conditions, either express or implied.</p>
         <p>For detailed permissions and restrictions, please refer to the license.</p>
-        <p>For more information, please visit <a op-50 style="color: red" href="https://github.com/TalexDreamSoul/tds.io">tds.io</a></p>
+        <p>
+          For more information, please visit <a
+            op-50 style="color: red"
+            href="https://github.com/TalexDreamSoul/tds.io"
+          >tds.io</a>
+        </p>
       </div>
     </div>
 
@@ -214,29 +219,28 @@ const asides = reactive([
 </template>
 
 <style>
-.Main {
-  .Main-Header-Title {
-    position: relative;
+.Main-Header-Title {
+  position: relative;
 
-    &::before {
-      content: "";
-      position: absolute;
+  text-indent: .5rem;
+}
 
-      top: 10%;
-      left: 0;
-      height: 80%;
-      width: .25rem;
+.Main-Header-Title::before {
+  content: "";
+  position: absolute;
 
-      border-radius: 50px;
-      background-color: var(--theme-color);
-    }
+  top: 10%;
+  left: 0;
+  height: 80%;
+  width: .25rem;
 
-    text-indent: .5rem;
-  }
-  .Main-Copyright {
-    color: #AeAeAe;
-    font-size: .75rem;
-  }
+  border-radius: 50px;
+  background-color: var(--theme-color);
+}
+
+.Main-Copyright {
+  color: #AeAeAe;
+  font-size: .75rem;
 }
 
 .Aside .Aside-Item {
