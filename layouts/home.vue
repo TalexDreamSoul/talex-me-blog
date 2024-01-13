@@ -85,7 +85,7 @@ function handleScroll() {
   else {
     const maxHeight = document.body.clientHeight
 
-    const per = (window.scrollY + 900) / maxHeight
+    const per = window.scrollY / (maxHeight - 900)
 
     article.value._per = per
 
