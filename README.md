@@ -1,81 +1,101 @@
-<p align="center">
-<img src="https://user-images.githubusercontent.com/11247099/140462375-7b7ac4db-35b7-453c-8a05-13d8d20282c4.png" width="600"/>
-</p>
-
 <h2 align="center">
-<a href="https://github.com/antfu/vitesse">Vitesse</a> for Nuxt 3
+Blog for <a href="https://github.com/antfu/TalexDreamSoul">TDS</a>
 </h2><br>
 
 <p align="center">
 <br>
-<a href="https://vitesse-nuxt3.netlify.app/">🖥 Online Preview</a>
-<br><br>
-<a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
+<a href="https://blog.tagzxia.com/">🖥 HERE</a>
 </p>
 
-## Features
+## Introduction
 
-- 💚 [Nuxt 3](https://nuxt.com/) - SSR, ESR, File-based routing, components auto importing, modules, etc.
+Welcome to the captivating world of a witty and skilled high schooler, TalexDreamSoul. At the age of 18, this coding enthusiast has left an indelible mark in the programming community. With a keen sense of humor and a passion for coding, TalexDreamSoul is not your typical high school student.
 
-- ⚡️ Vite - Instant HMR.
+### Languages Known
 
-- 🎨 [UnoCSS](https://github.com/unocss/unocss) - The instant on-demand atomic CSS engine.
+| Language         | Proficiency Level |
+|------------------|-------------------|
+| JavaScript       | Advanced          |
+| TypeScript       | Advanced          |
+| Vue              | Advanced          |
+| Nuxt.js          | Advanced          |
+| Java             | Advanced          |
+| React            | Intermediate      |
+| Angular          | Intermediate      |
+| arkTs          | Intermediate      |
+| C/C++            | Intermediate          |
+| Kotlin           | Intermediate      |
+| LLVM             | Intermediate      |
+| Python           | Intermediate          |
+| HTML/CSS         | Intermediate      |
+| PHP              | Intermediate      |
+| Swift            | Intermediate      |
+| Ruby             | Beginner           |
+| Go              | Beginner      |
+| Rust             | Beginner           |
+| Dart             | Beginner           |
+| More|Learning|
 
-- 😃 Use icons from any icon sets in Pure CSS, powered by [UnoCSS](https://github.com/unocss/unocss).
+*Advanced means proficient in writing, debugging, and optimizing code.
+*Intermediate means able to write and debug code, but not able to optimize it.
+*Beginner means able to write and debug code, but not able to optimize it.
 
-- 🔥 The `<script setup>` syntax.
+## Technical Expertise
 
-- 🍍 [State Management via Pinia](https://github.com/vuejs/pinia), see [./composables/user.ts](./composables/user.ts).
+> Here is a list of my technical expertise.(Know, Learn, and Master)
 
-- 📑 [Layout system](./layouts).
+### Web Frontend
 
-- 📥 APIs auto importing - for Composition API, VueUse and custom composables.
+1. **JavaScript/TypeScript/Vue.js/React/Angular:** Advanced proficiency, crafting dynamic and responsive user interfaces.
 
-- 🏎 Zero-config cloud functions and deploy.
+2. **Nuxt.js/Vite:** Advanced knowledge in server-side rendering, file-based routing, and component auto-importing. Proficient in Vite for rapid development and HMR.
 
-- 🦾 TypeScript, of course.
+3. **UnoCSS/Pure CSS Icons:** Mastery in on-demand atomic CSS engine and creating Pure CSS icons using UnoCSS.
 
-- 📲 [PWA](https://github.com/vite-pwa/nuxt) with offline support and auto update behavior.
+4. **Frontend State Management with Pinia:** Skillful application of state management using Pinia.
 
+5. **Layout Systems:** Implementing organized layout systems for enhanced code organization.
 
-## Plugins
+### Backend & Cloud Computing
 
-### Nuxt Modules
+6. **Java/Kotlin/Arrowkt:** High proficiency in the Java ecosystem, including Kotlin and Arrowkt for functional programming.
 
-- [VueUse](https://github.com/vueuse/vueuse) - collection of useful composition APIs.
-- [ColorMode](https://github.com/nuxt-modules/color-mode) - dark and Light mode with auto detection made easy with Nuxt.
-- [UnoCSS](https://github.com/unocss/unocss) - the instant on-demand atomic CSS engine.
-- [Pinia](https://github.com/vuejs/pinia) - intuitive, type safe, light and flexible Store for Vue.
-- [VitePWA](https://github.com/vite-pwa/nuxt) - zero-config PWA Plugin for Nuxt 3.
-- [DevTools](https://github.com/nuxt/devtools) - unleash Nuxt Developer Experience.
+7. **LLVM/Zero-Config Cloud Functions:** Intermediate knowledge in LLVM framework and seamless deployment of zero-config cloud functions.
 
-## IDE
+8. **Serverless Architecture:** Implementing serverless architectures for efficient cloud computing.
 
-We recommend using [VS Code](https://code.visualstudio.com/) with [Volar](https://github.com/johnsoncodehk/volar) to get the best experience (You might want to disable [Vetur](https://vuejs.github.io/vetur/) if you have it).
+9. **RESTful APIs & GraphQL:** Developing RESTful APIs and exploring GraphQL for efficient data querying.
 
-## Variations
+10. **PWA (Progressive Web App):** Building PWAs with offline support and auto-update behavior.
 
-- [vitesse](https://github.com/antfu/vitesse) - Opinionated Vite Starter Template
-- [vitesse-lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse
-- [vitesse-nuxt-bridge](https://github.com/antfu/vitesse-nuxt-bridge) - Vitesse for Nuxt 2 with Bridge
-- [vitesse-webext](https://github.com/antfu/vitesse-webext) - WebExtension Vite starter template
+### Databases
 
-## Try it now!
+11. **MySQL/SQLite:** Proficient in relational databases, including MySQL and SQLite, for structured data storage.
 
-### Online
+12. **MongoDB:** Experience with NoSQL databases, particularly MongoDB, for flexible and scalable data storage.
 
-<a href="https://stackblitz.com/github/antfu/vitesse-nuxt3"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt=""></a>
+13. **Redis:** Utilizing Redis for caching and fast data retrieval in web applications.
 
-### GitHub Template
+### Frontend-Backend Collaboration & Workflow Tools
 
-[Create a repo from this template on GitHub](https://github.com/antfu/vitesse-nuxt3/generate).
+14. **CI/CD Processes:** Proficient in CI/CD tools, ensuring an efficient development workflow.
 
-### Clone to local
+15. **GitHub Actions:** Utilizing GitHub Actions for automated builds, tests, and deployment.
 
-If you prefer to do it manually with the cleaner git history
+16. **APIs Auto Importing:** Streamlining the integration of APIs for Composition API, VueUse, and custom composables.
 
-```bash
-npx degit antfu/vitesse-nuxt3 my-nuxt3-app
-cd my-nuxt3-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
-```
+17. **Dynamic Script Setup:** Leveraging the `<script setup>` syntax for cleaner and more concise component setup.
+
+### Multi-Language & Libraries
+
+18. **C/C++/C#/Rust/Go:** Familiarity with various programming languages and common libraries.
+
+19. **Algorithmic Journey:** Sharing experiences and insights on learning algorithms.
+
+20. **Desktop Application Development:** Exploring desktop application development with various technologies.
+
+21. **Cross-Platform Mobile Development:** Exploring cross-platform mobile development with Flutter.
+
+22. **Electron:** Extensive experience building powerful cross-platform desktop applications with Electron.
+
+23. **Open Source Contributions:** Actively contributing to open source projects, fostering collaboration and knowledge sharing.
