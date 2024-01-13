@@ -215,10 +215,14 @@ function handleClick(index, path) {
 .article .Header-Default {
   opacity: 0;
   transform: translateY(-10px);
+
+  pointer-events: none;
 }
 
 .Header-Default {
   transition: .25s;
+
+  pointer-events: unset;
 }
 
 .Header-Article {
@@ -233,6 +237,7 @@ function handleClick(index, path) {
 
   opacity: 0;
   transition: .25s;
+  pointer-events: none;
   transform: translateY(10px);
 }
 
@@ -243,6 +248,7 @@ function handleClick(index, path) {
 
 .article .Header-Article {
   opacity: 1;
+  pointer-events: unset;
   transform: translateY(0px);
 }
 
