@@ -221,7 +221,6 @@ function open(url: string) {
 
     transition: .35s;
     filter: blur(10px) brightness(100%);
-    animation: shining infinite 1s;
     background-image: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
   }
 
@@ -251,12 +250,13 @@ function open(url: string) {
   &::before,
   &::after {
     background-size: 400%;
+    animation: show 8s linear infinite;
   }
 
   &::before {
     opacity: .25;
     height: 100%;
-    animation: show 8s linear infinite;
+
     transform: scale(1, 1) translateY(0px);
     transition: transform .35s, height .15s, opacity .15s;
   }
