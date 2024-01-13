@@ -76,22 +76,28 @@ onUnmounted(() => {
   document.removeEventListener('scroll', handleScroll)
 })
 
-function handleScroll() {
+let lastTop = -1
+
+function handleScroll(e) {
+  const thisTop = window.scrollY
+
   const _article = window._article
-  if (window.scrollY < 100 || !_article) {
+  if (thisTop < lastTop || thisTop < 100 || !_article) {
     article.value.enable = false
   }
 
   else {
     const maxHeight = document.body.clientHeight
 
-    const per = window.scrollY / (maxHeight - 950)
+    const per = thisTop / (maxHeight - 950)
 
     article.value._per = per
 
     Object.assign(article.value, _article)
     article.value.enable = true
   }
+
+  lastTop = thisTop
 }
 
 function refreshFocus(route) {
