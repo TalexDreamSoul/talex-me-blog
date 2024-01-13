@@ -30,9 +30,9 @@ const menus = reactive({
       icon: 'i-carbon-watsonx-governance',
     },
     {
-      label: 'Support',
+      label: 'Sponsor',
       path: '/support',
-      icon: 'i-carbon-s',
+      icon: 'i-carbon-user-sponsor',
     },
     {
       label: 'Demo',
