@@ -36,7 +36,6 @@ onMounted(() => {
   QRCode.toCanvas(cvs, props.content, (error) => {
     if (error)
       console.error(error)
-    console.log('success!')
 
     const cr = createCodeRenderer(cvs)
 
@@ -50,6 +49,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- <div class="DynamicCard-Wrapper"> -->
   <div ref="card" class="DynamicCode">
     <h1>QR Code</h1>
 
@@ -59,13 +59,14 @@ onMounted(() => {
 
     <div class="DynamicCode-Slider" @click="close" />
   </div>
+  <!-- </div> -->
 </template>
 
 <style>
 .DynamicCode-Slider:hover {
-  width: 20%;
+  width: 40%;
 
-  height: .75rem;
+  height: .5rem;
 
   opacity: 1;
 }
@@ -76,8 +77,8 @@ onMounted(() => {
   left: 50%;
   bottom: 1%;
 
-  width: 10%;
-  height: .25rem;
+  width: 20%;
+  height: .35rem;
 
   border-radius: 8px;
   background-color: var(--theme-color);
@@ -125,6 +126,42 @@ onMounted(() => {
   }
 }
 
+/* @keyframes cardJoin {
+  from {
+    opacity: 0;
+    transform: translate3D(0, 0px, 100px) scale(.75)
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3D(0, 0px, -100px) scale(.75)
+  }
+} */
+
+/* .DynamicCard-Wrapper {
+  position: absolute;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
+  left: 0%;
+  top: 0%;
+
+  width: 100%;
+  height: 100%;
+
+  perspective: 2000px;
+
+  animation: cardJoin 5.75s cubic-bezier(0.645, 0.045, 0.355, 1) forwards 1000;
+  backdrop-filter: blur(18px);
+  background-color: var(--major-color);
+  backdrop-filter: brightness(130%) blur(18px);
+  box-shadow: 4px 1px 24px 1px var(--major-color);
+} */
+
 .DynamicCode {
   position: absolute;
   display: flex;
@@ -137,8 +174,8 @@ onMounted(() => {
   left: 50%;
   top: 50%;
 
-  width: 60ch;
-  height: 70ch;
+  width: 50ch;
+  height: 60ch;
 
   border-radius: 12px;
   transition: all .5s;

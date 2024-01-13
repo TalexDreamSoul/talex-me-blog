@@ -122,7 +122,7 @@ function handleClick(index, path) {
         </Suspense>
         Powered by TalexTouch template, extends by Vitesse.
         <br>
-        Released under MIT License. Copyright TalexDreamSoul 2023.
+        Released under MIT License. Copyright TalexDreamSoul 2024.
       </div>
     </div>
   </main>

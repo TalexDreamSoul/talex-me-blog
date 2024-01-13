@@ -113,7 +113,7 @@ const asides = reactive([
       </div>
     </div>
 
-    <div px-8 py-8 class="Main">
+    <div px-5 py-5 class="Main">
       <div class="Main-Header">
         <h1 font-bol4 font-size-10 class="Main-Header-Title">
           <span v-if="article.header?.title">
@@ -121,7 +121,7 @@ const asides = reactive([
           </span>
           <span v-else class="waiting" />
         </h1>
-        <div v-if="article.header" class="Main-Header-Tags" flex items-center gap-4>
+        <div v-if="article.header" mt-2 class="Main-Header-Tags" flex items-center gap-4>
           <span class="copyright tag">
             Original
           </span>
@@ -181,19 +181,19 @@ const asides = reactive([
       <div v-if="article.header" class="Box">
         <p>RELATIVE TAGS</p>
         <span
-          v-for="(tag, index) in article.tags" :key="index" style="background-color: #F4BF7540;color: #AeAeAe" mr-2
+          v-for="(tag, index) in article.tags" :key="index" style="box-shadow: 1px 1px 2px 1px #F4BF7580;background-color: #F4BF7540;color: #0A0A0A" mr-2
           op-75 class="tag"
         >
           {{ tag }}
         </span>
       </div>
 
-      <div v-if="article.header" class="Box">
+      <!-- <div v-if="article.header" class="Box">
         <p>AUTHOR INTRODUCTION</p>
         <span>
           No more information about {{ article.header.author }}.
         </span>
-      </div>
+      </div> -->
 
       <div class="Box">
         <p>ON THIS PAGE</p>
@@ -202,10 +202,10 @@ const asides = reactive([
         <div v-else style="height: 10rem" class="waiting" />
       </div>
 
-      <div class="Box">
+      <!-- <div class="Box">
         <p>RELATION POSTS</p>
         <span>NONE</span>
-      </div>
+      </div> -->
 
       <div v-if="article?.header?.ai_generated" class="Box">
         <p>AI ASSISTANT</p>
@@ -219,10 +219,22 @@ const asides = reactive([
 </template>
 
 <style>
+.tag {
+  box-shadow: 1px 1px 2px 1px #afe7c2;
+}
+
 .Main-Header-Title {
   position: relative;
 
-  text-indent: .5rem;
+  /* font-weight: 600; */
+  text-indent: 1rem;
+
+  opacity: .9;
+  text-shadow: 1px -1px #00000080, -1px 1px #111, 5px 5px 5px #20202080;
+}
+
+.dark .Main-Header-Title {
+  text-shadow: 1px -1px #ffffff80, -1px 1px #AAA, 5px 5px 5px #80808080;
 }
 
 .Main-Header-Title::before {
@@ -235,6 +247,7 @@ const asides = reactive([
   width: .25rem;
 
   border-radius: 50px;
+  box-shadow: 2px 2px 5px 1px var(--theme-color);
   background-color: var(--theme-color);
 }
 
