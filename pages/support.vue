@@ -72,9 +72,14 @@ function open(url: string) {
       <h3 font-size-6>
         You can donate me on these platforms.
       </h3>
-      <p my-4 font-size-4 op-80>
-        If there is no you can donate my platform here, it's okay, thank you for having this heart.
-      </p>
+      <div my-4 font-size-4 op-80>
+        If there is no you can donate my platform here, it's okay, thank you for having this heart
+        <div class="heart">
+          <div class="hrt lef" />
+          <div class="hrt cen" />
+          <div class="hrt rig" />
+        </div>.
+      </div>
 
       <div my-20 class="PlatformWrapper">
         <div v-for="(platform, index) in platforms" :key="index" class="PlatformItem" @click="open(platform.url)">
@@ -92,6 +97,62 @@ function open(url: string) {
 </template>
 
 <style>
+.heart {
+  position: relative;
+  display: inline-block;
+
+  width: 24px;
+  height: 16px;
+}
+
+.hrt {
+  position: relative;
+
+  left: 0;
+  top: 0;
+
+  width: 10px;
+  height: 10px;
+  background-color: #d50924;
+  box-shadow: 0 0 70px #eb0c0c;
+  animation: sport 1s infinite;
+}
+
+.lef {
+  border-radius: 100px;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+}
+
+.rig {
+  border-radius: 100px;
+  position: absolute;
+  top: 2px;
+  left: 10px;
+}
+
+.cen {
+  transform: rotate(45deg);
+  position: absolute;
+  top: 6.9px;
+  left: 5px;
+}
+
+@keyframes sport {
+  0% {
+    transform: scale(1) rotate(45deg);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(45deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
 @keyframes show {
   0% {
     background-position: 0%;
