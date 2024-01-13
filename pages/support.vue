@@ -153,13 +153,12 @@ function open(url: string) {
     padding: 2px 0;
 
     left: 0;
-    bottom: 0;
+    bottom: -2px;
 
     opacity: 0;
     width: 100%;
-    height: 5px;
+    height: 10px;
 
-    transform: scale(0) translateX(-10px);
     transition: .35s;
     filter: blur(10px) brightness(100%);
     animation: shining infinite 1s;
@@ -214,6 +213,8 @@ function open(url: string) {
   background-position: 0%;
   background-size: 400%;
   animation: show 8s linear infinite;
+
+  backdrop-filter: blur(10px) brightness(200%);
 }
 
 .PlatformItem:hover span {
