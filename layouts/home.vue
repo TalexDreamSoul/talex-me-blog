@@ -30,6 +30,11 @@ const menus = reactive({
       icon: 'i-carbon-watsonx-governance',
     },
     {
+      label: 'Support',
+      path: '/support',
+      icon: 'i-carbon-s',
+    },
+    {
       label: 'Demo',
       path: '/demo',
       icon: 'i-carbon-ibm-cloud-security-compliance-center-workload-protection',
