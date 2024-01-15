@@ -213,8 +213,9 @@ pre .rich-lang {
   }
 
   position: relative;
-  padding: 2px;
+  padding-top: 1px;
 
+  border-radius: 8px;
   transform: translate(var(--offX), var(--offY));
   transition: .125s;
   overflow: hidden;
