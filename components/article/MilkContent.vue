@@ -189,25 +189,64 @@ pre .rich-lang {
   opacity: .5;
 }
 
+.rich-quote-shadow.enter::before {
+  opacity: 1 !important;
+}
+
+.rich-quote-shadow {
+  &::before {
+    content: "";
+    position: absolute;
+
+    left: var(--x);
+    top: var(--y);
+
+    width: 20px;
+    height: 20px;
+
+    opacity: 0;
+    filter: blur(20px) brightness(500%);
+    background:
+      linear-gradient(to right, var(--theme-color), var(--text-color)),
+      linear-gradient(145deg, var(--text-color-light) 80%, var(--theme-color) 90%);
+    transition: opacity .25s;
+  }
+
+  position: relative;
+  padding: 2px;
+
+  transform: translate(var(--offX), var(--offY));
+  transition: .125s;
+  overflow: hidden;
+}
+
 blockquote {
   &::before {
-    z-index: -2;
+    z-index: -1;
     content: "";
     position: absolute;
 
     left: 0;
     top: -1%;
     width: 100%;
-    height: 102%;
+    height: 100%;
 
-    opacity: .125;
+    --x: 0;
+    --y: 0;
+
     border-radius: 8px;
     background:
-      linear-gradient(to right, var(--theme-color), var(--text-color-light)),
+      linear-gradient(to right, var(--theme-color), var(--text-color)),
       linear-gradient(145deg, var(--text-color-light) 80%, var(--theme-color) 90%);
   }
 
+  margin: 0 !important;
+
   padding: .001rem 1rem;
+}
+
+blockquote p {
+  pointer-events: none;
 }
 
 .dark blockquote::before,
@@ -231,6 +270,7 @@ code {
     border-radius: 4px;
     background-color: var(--major-color-light);
   }
+
   position: relative;
   padding: 2px 6px;
 }
@@ -270,8 +310,7 @@ pre {
   color: #AAA;
   text-shadow:
     -1px 1px #ccc,
-    -1px -1px #ccc
-  ;
+    -1px -1px #ccc;
 
   pointer-events: none;
 

@@ -56,7 +56,7 @@ const preRich: IRichFunc = (() => {
     waterMark.innerHTML = '<span class=\'watermark\'>TalexMeBlog</span>'
 
     // 获取parent
-    const parentDom = dom.parentElement
+    const parentDom = dom.parentElement!
 
     // 找到索引
     const arr = [...parentDom.children]
@@ -69,6 +69,61 @@ const preRich: IRichFunc = (() => {
     waterMark.appendChild(dom)
   }
 
+  function _genQuoteShadow(dom: HTMLElement) {
+    const parentDom = dom.parentElement!
+
+    const arr = [...parentDom.children]
+    const ind = arr.indexOf(dom)
+
+    const shadow = document.createElement('div')
+    shadow.className = 'rich-article rich-quote-shadow'
+    parentDom.insertBefore(shadow, arr[ind])
+    parentDom.removeChild(dom)
+    shadow.innerHTML = dom.outerHTML
+
+    // 定义偏移幅度
+    const offsetX = 10
+    const offsetY = 5
+
+    function _getOffset(range, value, max) {
+      return value / max * (range[1] - range[0]) + range[0]
+    }
+
+    // 根据当前的x和y算出偏移
+    function genOffset(numX: number, numY: number) {
+      const rect = shadow.getBoundingClientRect()
+
+      const x = _getOffset([-offsetX, offsetX], numX, rect.width)
+      const y = _getOffset([-offsetY, offsetY], numY, rect.height)
+
+      return [x, y]
+    }
+
+    shadow.addEventListener('mouseleave', () => {
+      shadow.classList.remove('enter')
+
+      shadow.style.setProperty('--offX', '0px')
+      shadow.style.setProperty('--offY', '0px')
+    })
+
+    shadow.addEventListener('mouseenter', () => {
+      shadow.classList.add('enter')
+    })
+
+    shadow.addEventListener('mousemove', (e) => {
+      const x = e.offsetX - 10
+      const y = e.offsetY - 10
+
+      shadow.style.setProperty('--x', `${x}px`)
+      shadow.style.setProperty('--y', `${y}px`)
+
+      const [offX, offY] = genOffset(x, y)
+
+      shadow.style.setProperty('--offX', `${offX}px`)
+      shadow.style.setProperty('--offY', `${offY}px`)
+    })
+  }
+
   function genCopy() {
     if (!editor)
       return
@@ -77,6 +132,10 @@ const preRich: IRichFunc = (() => {
 
     dom.querySelectorAll('img').forEach((element) => {
       _genWatermark(element)
+    })
+
+    dom.querySelectorAll('blockquote').forEach((element) => {
+      _genQuoteShadow(element)
     })
 
     ;[...dom.children[0].children].forEach((e: Element) => {
