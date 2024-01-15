@@ -230,7 +230,7 @@ const asides = reactive([
   position: relative;
 
   /* font-weight: 600; */
-  text-indent: 1rem;
+  text-indent: 1.25rem;
 
   opacity: .9;
   text-shadow: 1px -1px #00000080, -1px 1px #111, 5px 5px 5px #20202080;
