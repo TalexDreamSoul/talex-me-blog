@@ -59,7 +59,7 @@ export async function useBackground() {
 
       const nuxt = document.querySelector('.Home-Main')!
 
-      const observer = new MutationObserver((mutations, observer) => {
+      const observer = new MutationObserver(() => {
         effect.resize()
       })
 
@@ -70,9 +70,11 @@ export async function useBackground() {
       })
 
       window._effectResize = () => {
-        effect.destroy()
+        requestAnimationFrame(() => {
+          effect.destroy()
 
-        effect = createEffect()
+          effect = createEffect()
+        })
       }
     }, 500)
   }

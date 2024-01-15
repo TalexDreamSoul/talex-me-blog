@@ -78,7 +78,7 @@ onUnmounted(() => {
 
 let lastTop = -1
 
-function handleScroll(e) {
+function handleScroll() {
   const thisTop = window.scrollY
 
   const _article = window._article
@@ -146,7 +146,7 @@ function handleClick(index, path) {
           </span>
           <div class="percentage">
             <div class="percentage-bar" :style="`width: ${Math.round(article._per * 100)}%`">
-            <span>{{Math.round(article._per * 100)}}%</span>
+              <span>{{ Math.round(article._per * 100) }}%</span>
             </div>
           </div>
         </div>
