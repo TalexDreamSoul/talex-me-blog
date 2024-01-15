@@ -14,6 +14,22 @@ watchEffect(() => {
         eleArr.value[ind].relative = props.outline[ind]
       })
 
+    // 获取url中的state
+    const { hash } = location
+
+    if (hash) {
+      const state = decodeURI(hash.substring(1))
+
+      for (let i = 0; i < eleArr.value.length; ++i) {
+        handleClick(i)
+
+        const ele = eleArr.value[i]
+
+        if (ele.innerText === state)
+          return
+      }
+    }
+
     fixPointerPos(0)
   }, 200)
 })
@@ -78,6 +94,9 @@ function fixPointerPos(index: number) {
 
   target.classList.add('active')
 
+  // 为页面url设置
+  history.pushState({}, '', `#${encodeURI(target.innerText)}`)
+
   style.opacity = '.75'
   style.transform = 'scaleY(.6)'
   style.top = `${target.offsetTop}px`
@@ -96,7 +115,7 @@ function fixPointerPos(index: number) {
 async function handleClick(index: number) {
   const target = eleArr.value[index]
 
-  await target.scrollIntoView({
+  target.scrollIntoView({
     behavior: 'smooth',
     block: 'center',
     inline: 'nearest',
