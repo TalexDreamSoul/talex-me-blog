@@ -54,8 +54,6 @@ onMounted(async () => {
 
     setTimeout(() => {
       window._effectResize?.()
-
-      console.log(window._effectResize)
     }, 200)
   }
   catch (e) {

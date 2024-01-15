@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 const props = defineProps(['outline'])
 
-const pointer = ref(null)
+const pointer = ref<HTMLElement>()
 const eleArr = ref<HTMLElement[]>([])
 watchEffect(() => {
   setTimeout(() => {
     const editor = document.querySelector('#MilkEditor')!
 
-    ;[...editor.children[0].children[0].children]
+      ;[...editor.children[0].children[0].children]
       .filter(ele => ele.tagName.match(/H[1-6]/))
       .forEach((ele, ind) => {
         eleArr.value.push(ele as HTMLElement)
@@ -22,8 +22,8 @@ onMounted(() => window.addEventListener('scroll', handleScroll))
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 function handleScroll() {
-  // 如果这个时候页面滚动了70%以上 就要换成倒叙查找可见的
-  const reverse = window.scrollY / document.body.scrollHeight > 0.6
+  // 如果这个时候页面滚动了80%以上 就要换成倒叙查找可见的
+  const reverse = window.scrollY / document.body.scrollHeight > 0.8
   const arr = reverse ? [...eleArr.value].reverse() : [...eleArr.value]
 
   let ind = arr.length - 1
@@ -48,7 +48,7 @@ function handleScroll() {
       // }
     }
     else {
-      if (rect.top >= rect.height) {
+      if (rect.top + 50 >= rect.height) {
         ind = i
         break
       }
@@ -60,11 +60,12 @@ function handleScroll() {
 
 function fixPointerPos(index: number) {
   const target = document.querySelector(`#Outline-Item-${index}`) as HTMLElement
+  const style = pointer.value!.style
 
   if (!target) {
-    pointer.value!.style.opacity = '0'
-    pointer.value!.style.transform = 'scaleY(0)'
-    pointer.value!.style.height = '0'
+    style.opacity = '0'
+    style.transform = 'scaleY(0)'
+    style.height = '0'
     return
   }
 
@@ -75,13 +76,20 @@ function fixPointerPos(index: number) {
 
   target.classList.add('active')
 
-  pointer.value!.style.opacity = '1'
-  pointer.value!.style.transform = 'scaleY(1)'
-  pointer.value!.style.top = `${target.offsetTop}px`
-  pointer.value!.style.height = `${target.getBoundingClientRect().height}px`
+  style.opacity = '.75'
+  style.transform = 'scaleY(.6)'
+  style.top = `${target.offsetTop}px`
+  style.height = `${target.getBoundingClientRect().height}px`
+  style.boxShadow = '2px 1px 12px 1px var(--theme-color)'
+
+  setTimeout(() => {
+    style.opacity = '1'
+    style.transform = 'scaleY(1)'
+    style.boxShadow = '4px 1px 24px 1px var(--theme-color)'
+  }, 200)
 }
 
-async function handleClick(index) {
+async function handleClick(index: number) {
   const target = eleArr.value[index]
 
   await target.scrollIntoView({
@@ -96,7 +104,10 @@ async function handleClick(index) {
 
 <template>
   <ul>
-    <li v-for="(item, index) in outline" :id="`Outline-Item-${index}`" :key="index" class="Outline-Item" :style="`--level: ${item.level}`" @click="handleClick(index, $event)">
+    <li
+      v-for="(item, index) in outline" :id="`Outline-Item-${index}`" :key="index" class="Outline-Item"
+      :style="`--level: ${item.level}`" @click="handleClick(index)"
+    >
       {{ item.text }}
     </li>
 
@@ -115,6 +126,7 @@ ul li {
   position: relative;
   padding: .25em;
 
+  opacity: .85;
   cursor: pointer;
   text-indent: 1rem;
   pointer-events: all;
@@ -133,7 +145,7 @@ ul li::before {
 
   border-radius: 8px;
   transition: width .5s;
-  filter: invert(5rem%);
+  filter: invert(5%) brightness(120%);
   background-color: var(--major-color-light);
 }
 
@@ -143,6 +155,7 @@ ul li::before {
 }
 
 .Outline-Item.active {
+  opacity: 1;
   font-weight: 600;
   pointer-events: none;
 }
@@ -152,7 +165,7 @@ ul li::before {
 }
 
 .OutlinePointer {
-  transition: all .2s ease-in-out;
+  transition: all .2s;
   opacity: 0;
   transform: scaleY(0);
 

@@ -234,7 +234,7 @@ blockquote {
     --x: 0;
     --y: 0;
 
-    opacity: .2 ;
+    opacity: .2;
     border-radius: 8px;
     background:
       linear-gradient(to right, var(--theme-color), var(--text-color)),
