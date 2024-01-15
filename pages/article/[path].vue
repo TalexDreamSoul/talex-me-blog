@@ -90,7 +90,9 @@ const asides = reactive([
   {
     title: 'Star',
     icon: 'i-carbon-star',
-    func: () => { },
+    func: () => {
+      window.open('https://github.com/TalexDreamSoul/talex-me-blog')
+    },
   },
   {
     title: 'Speak',
