@@ -58,6 +58,8 @@ function handleScroll() {
   fixPointerPos(ind)
 }
 
+let timer: any = null
+
 function fixPointerPos(index: number) {
   const target = document.querySelector(`#Outline-Item-${index}`) as HTMLElement
   const style = pointer.value!.style
@@ -82,7 +84,9 @@ function fixPointerPos(index: number) {
   style.height = `${target.getBoundingClientRect().height}px`
   style.boxShadow = '2px 1px 12px 1px var(--theme-color)'
 
-  setTimeout(() => {
+  clearTimeout(timer)
+
+  timer = setTimeout(() => {
     style.opacity = '1'
     style.transform = 'scaleY(1)'
     style.boxShadow = '4px 1px 24px 1px var(--theme-color)'
