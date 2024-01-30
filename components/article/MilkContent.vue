@@ -183,8 +183,8 @@ pre .rich-copy:hover {
 pre .rich-lang {
   position: absolute;
 
-  right: 1%;
-  bottom: 1%;
+  right: 5px;
+  bottom: 5px;
 
   opacity: .5;
 }
