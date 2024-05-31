@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { useLists } from '~/composables/article'
+import { useListsLocal } from '~/composables/article'
 
 const route = useRoute()
 const router = useRouter()
-const view = ref({
+const view = ref<{
+  path: string
+  list: any[]
+}>({
   path: '',
   list: [],
-})
+},
+)
 
 definePageMeta({
   layout: 'home',
@@ -14,11 +18,15 @@ definePageMeta({
 })
 
 async function refreshList() {
-  view.value.path = (route.query.path || 'personal') as string
+  view.value.list = []
 
-  const list = await useLists(view.value.path)
+  setTimeout(async () => {
+    view.value.path = (route.query.path || 'personal') as string
 
-  view.value.list = list
+    const list = await useListsLocal(view.value.path)
+
+    view.value.list = list
+  }, 100)
 }
 
 onMounted(refreshList)
@@ -28,10 +36,10 @@ function calcReadingTime(len: number) {
   return Math.ceil(len / 1100)
 }
 
-async function handleClick(item) {
+async function handleClick(item: any) {
   const directPath = `${view.value.path}/${item.name}`
 
-  if (item.type !== 'file') {
+  if (item.isDirectory) {
     await router.push({
       query: {
         path: directPath,
@@ -72,11 +80,11 @@ async function handleBack() {
         :style="`--d: ${index * .025}s`" @click="handleClick(item)"
       >
         <span mr-1 mt-.5>
-          <i v-if="item.type === 'file'" i-carbon-document block />
+          <i v-if="!item.isDirectory" i-carbon-document block />
           <i v-else i-carbon-folder block />
         </span>
         {{ item.name }}
-        <span v-if="item.type === 'file'" class="tag" style=";transform: scale(.75);opacity: .25">
+        <span v-if="!item.isDirectory" class="tag" style=";transform: scale(.75);opacity: .25">
           {{ calcReadingTime(item.size) }} min
         </span>
         <span v-if="item.cpp" class="tag" style="background-color: #FFD140;transform: scale(.75);opacity: .25">
