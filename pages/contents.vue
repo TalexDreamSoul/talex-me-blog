@@ -33,7 +33,7 @@ onMounted(refreshList)
 router.afterEach(refreshList)
 
 function calcReadingTime(len: number) {
-  return Math.ceil(len / 1100)
+  return Math.ceil(len / 400)
 }
 
 async function handleClick(item: any) {
