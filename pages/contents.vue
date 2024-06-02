@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useListsLocal } from '~/composables/article'
+import { articleManager, useListsLocal } from '~/composables/article'
 
 const route = useRoute()
 const router = useRouter()
@@ -23,7 +23,7 @@ async function refreshList() {
   setTimeout(async () => {
     view.value.path = (route.query.path || 'personal') as string
 
-    const list = await useListsLocal(view.value.path)
+    const list = await articleManager.getListsLocal(view.value.path)
 
     view.value.list = list
   }, 100)

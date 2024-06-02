@@ -83,6 +83,100 @@ export async function useLists(path = '') {
   return Object.values(map)
 }
 
+export class ArticleManager {
+  contents
+
+  constructor() {
+    this.contents = import.meta.glob('/documents/**', { query: '?raw' })
+  }
+
+  async getArticle(article: string) {
+    const _article = `/documents/${article}`
+
+    const obj = this.contents[_article]
+
+    if (!obj)
+      return undefined
+
+    return parseArticle((await obj()).default)
+  }
+
+  async getListsLocal(path = '') {
+    if (!path.endsWith('/'))
+      path += '/'
+
+    const contents = this.contents
+
+    const totalPath = `/documents/${path}`
+
+    const leftContents: any[] = Object.entries(contents).filter(key => key[0].startsWith(totalPath)).map((item) => {
+      return reactive({ name: item[0].replace(totalPath, ''), value: item[1] })
+    })
+
+    const map: { [key: string]: any } = {}
+
+    for (const _this of leftContents) {
+      let { name, value } = _this
+      const isDirectory = _this.isDirectory = name.includes('/')
+
+      if (isDirectory) {
+        name = name.split('/').slice(0, -1).join('/')
+
+        const obj = map[name]
+        if (!obj) {
+          map[name] = {
+            name,
+            isDirectory: true,
+            children: [value],
+          }
+        }
+        else { obj.children.push(value) }
+
+        continue
+      }
+      name = name.split('/').slice(-1)[0]
+
+      // 去掉后缀 获取名字 （只去掉最后一个.)
+      const _name = name.split('.').slice(0, -1).join('.')
+
+      if ((`${name}`).endsWith('.md')) {
+        _this.md = (await value()).default
+        _this.article = await parseArticle(_this.md)
+        _this.size = _this.article.body.length
+      }
+
+      if (!(`${name}`).endsWith('.md'))
+        continue
+
+      // const obj = map[_name]
+      // if (obj)
+      //   console.log('this', obj, map, name)
+
+      // if (obj) {
+      //   if ((`${name}`).endsWith('.cpp')) {
+      //     obj.cpp = _this
+      //   }
+
+      //   else if (obj.name.endsWith('.cpp')) {
+      //     // delete obj[_name]
+      //     _this.cpp = obj
+
+      //     map[_name] = _this
+      //   }
+      // }
+      // else {
+      map[_name] = _this
+      // }
+    }
+
+    return Object.values(map)
+  }
+}
+
+export const articleManager = new ArticleManager()
+
+articleManager.getArticle('/')
+
 /**
  * Use contents localhost
  */

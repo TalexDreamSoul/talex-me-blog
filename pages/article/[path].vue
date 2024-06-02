@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 // import localeCh from 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-import { useArticle } from '~/composables/article'
+import { articleManager, useArticle } from '~/composables/article'
 import { useSticky } from '~/composables/sticky'
 import { useDynamicCode } from '~/composables/hook'
 
@@ -39,7 +39,8 @@ function toggleSpeak() {
 
 onMounted(async () => {
   try {
-    const data = await useArticle(decodeURIComponent(route.params.path), '')
+    const data = await articleManager.getArticle(decodeURIComponent(route.params.path))
+    // const data = await useArticle(decodeURIComponent(route.params.path), '')
 
     Object.assign(article, data)
 
@@ -178,6 +179,10 @@ const asides = reactive([
           >tds.io</a>
         </p>
       </div>
+    </div>
+
+    <div class="Addon-Infer">
+      1
     </div>
 
     <div ref="addon" class="Addon only-pc-display">
@@ -388,6 +393,16 @@ const asides = reactive([
 
   transform: translateX(-50%);
 
+}
+
+.Addon-Infer {
+  position: sticky;
+
+  right: 0;
+
+  top: 50%;
+
+  transform: translateY(-50%);
 }
 
 @media (max-width: 768px) {
