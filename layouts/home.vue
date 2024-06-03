@@ -29,10 +29,15 @@ const menus = reactive({
       icon: 'i-carbon-ibm-cloud-projects',
     },
     {
-      label: 'BlogCasts',
-      path: '/blogcasts',
-      icon: 'i-carbon-watsonx-governance',
+      label: 'Milestone',
+      path: '/milestone',
+      icon: 'i-carbon-milestone',
     },
+    // {
+    //   label: 'BlogCasts',
+    //   path: '/blogcasts',
+    //   icon: 'i-carbon-watsonx-governance',
+    // },
     {
       label: 'Sponsor',
       path: '/support',
@@ -50,9 +55,9 @@ function handleKeyDown(event) {
   if (!event.altKey)
     return
 
-  const { key } = event
+  const { key } = event;
 
-    ;[...menus.list].forEach((k, i) => {
+  [...menus.list].forEach((k, i) => {
     if (k.label[0].toLowerCase() === key.toLowerCase()) {
       menus.ind = i
 
@@ -85,7 +90,6 @@ function handleScroll() {
   if (thisTop < lastTop || thisTop < 100 || !_article) {
     article.value.enable = false
   }
-
   else {
     const maxHeight = document.body.clientHeight
 
@@ -125,27 +129,35 @@ function handleClick(index, path) {
         <div class="Header-Default">
           <ul class="only-pc-display" h-16 flex items-center>
             <TouchHeadBtn
-              v-for="(item, index) in menus.list" :key="index" :focus="index === menus.ind"
-              :style="`--d: ${(index + 1) * 0.075}s`" @click="handleClick(index, item.path)"
+              v-for="(item, index) in menus.list"
+              :key="index"
+              :focus="index === menus.ind"
+              :style="`--d: ${(index + 1) * 0.075}s`"
+              @click="handleClick(index, item.path)"
             >
               {{ item.label }}
             </TouchHeadBtn>
           </ul>
           <ul class="only-pe-display" h-16 flex items-center>
             <li
-              v-for="(item, index) in menus.list" :key="index" :class="item.icon"
-              :style="`--d: ${(index + 1) * 0.075}s;color: ${index === menus.ind ? 'var(--text-color)' : 'var(--text-color-light)'}`"
+              v-for="(item, index) in menus.list"
+              :key="index"
+              :class="item.icon"
+              :style="`--d: ${(index + 1) * 0.075}s;color: ${
+                index === menus.ind ? 'var(--text-color)' : 'var(--text-color-light)'
+              }`"
               @click="handleClick(index, item.path)"
             />
           </ul>
         </div>
         <div v-if="article.header" class="Header-Article">
-          <h1> {{ article.header.title }}</h1>
-          <span class="tag">
-            {{ Math.ceil(article.body.length / 1100) }} min
-          </span>
+          <h1>{{ article.header.title }}</h1>
+          <span class="tag"> {{ Math.ceil(article.body.length / 1100) }} min </span>
           <div class="percentage">
-            <div class="percentage-bar" :style="`width: ${Math.round(article._per * 100)}%`">
+            <div
+              class="percentage-bar"
+              :style="`width: ${Math.round(article._per * 100)}%`"
+            >
               <span>{{ Math.round(article._per * 100) }}%</span>
             </div>
           </div>
@@ -184,7 +196,7 @@ function handleClick(index, path) {
   width: 120px;
   height: 20px;
 
-  opacity: .75;
+  opacity: 0.75;
   overflow: hidden;
   border-radius: 8px;
   background-color: var(--major-color);
@@ -198,7 +210,7 @@ function handleClick(index, path) {
   width: 100%;
   height: 100%;
 
-  opacity: .75;
+  opacity: 0.75;
   border-radius: 8px 0 0 8px;
   background-color: var(--theme-color);
 }
@@ -220,7 +232,7 @@ function handleClick(index, path) {
 }
 
 .Header-Default {
-  transition: .25s;
+  transition: 0.25s;
 
   pointer-events: unset;
 }
@@ -236,7 +248,7 @@ function handleClick(index, path) {
   align-items: center;
 
   opacity: 0;
-  transition: .25s;
+  transition: 0.25s;
   pointer-events: none;
   transform: translateY(10px);
 }
@@ -257,11 +269,11 @@ function handleClick(index, path) {
   padding: 0 4px;
 
   opacity: 0;
-  animation: join .25s var(--d) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation: join 0.25s var(--d) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .Home-Header li:hover {
-  opacity: .75;
+  opacity: 0.75;
 
   cursor: pointer;
 }
@@ -291,6 +303,10 @@ function handleClick(index, path) {
 @media (max-width: 768px) {
   .Home-Header {
     position: sticky;
+  }
+
+  .Contents .Main {
+    padding: 0 4rem;
   }
 }
 </style>
