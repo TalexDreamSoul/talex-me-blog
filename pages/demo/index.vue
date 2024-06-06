@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+import { useWindowSize } from '@vueuse/core'
+import { flowLayout } from './flow-layout'
+
+const { width, height } = useWindowSize()
+
 const projects = reactive([
   {
     logo: 'https://avatars.githubusercontent.com/u/114328891?s=48&v=4',
@@ -37,6 +42,16 @@ definePageMeta({
   select: 'Demo',
 })
 
+const container = ref()
+onMounted(() => {
+  flowLayout(container.value)
+})
+
+watch(
+  () => width.value + height.value,
+  () => flowLayout(container.value),
+)
+
 function redirect(url: string) {
   console.log(url)
 }
@@ -50,9 +65,12 @@ function redirect(url: string) {
       </h1>
       <span italic op-70>Demonstrations for projects I am working on from all wheres.</span>
     </div>
-    <div class="Projects-Content">
+    <div ref="container" class="Projects-Content">
       <TouchCardGradientCard
-        v-for="(item, index) in projects" :key="index" style="width: 25%"
+        v-for="(item, index) in projects"
+        :key="index"
+        data-item="true"
+        style="width: 0; opacity: 0"
         @click="redirect(item.url)"
       >
         <div class="Project-Img">
@@ -101,21 +119,19 @@ function redirect(url: string) {
   width: 100%;
   /* height: 80%; */
 
-  opacity: .75;
+  opacity: 0.75;
   border-radius: 8px;
 }
 
 .Projects-Content {
   position: relative;
-  display: flex;
 
-  justify-content: space-between;
-  flex-wrap: wrap;
+  left: 10%;
 
-  gap: 2rem;
-
-  width: 100%;
+  width: 80%;
   height: 100%;
+
+  overflow: hidden;
 }
 
 .Projects {

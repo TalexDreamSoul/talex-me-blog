@@ -8,9 +8,12 @@
 .GradientCard {
   position: relative;
   padding: .5rem;
-  /* display: inline-block; */
+  display: flex;
 
-  min-width: 30rem;
+  flex-direction: column;
+
+  /* width: 420px; */
+  /* min-width: 30rem; */
   min-height: 35rem;
 
   cursor: pointer;
@@ -18,6 +21,8 @@
   border-radius: 12px;
   backdrop-filter: blur(18px) saturate(180%) brightness(120%);
   background-color: var(--major-color-light);
+
+  box-sizing: border-box;
 }
 
 .GradientCard:hover {
