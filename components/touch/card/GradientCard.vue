@@ -1,6 +1,6 @@
 <template>
   <div class="GradientCard">
-    <div class="GradientCard-Container" />
+    <!-- <div class="GradientCard-Container" /> -->
 
     <slot />
   </div>
@@ -40,7 +40,6 @@
 
 .GradientCard {
   position: relative;
-  padding: 0.5rem;
 
   /* width: 420px; */
   /* min-width: 30rem; */

@@ -106,15 +106,24 @@ function redirect(url: string) {
   border-radius: 12px;
 }
 
+html.dark .Project-Foot {
+  color: fff;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.5));
+}
+
 .Project-Foot {
   z-index: 1;
   position: absolute;
   padding: 1rem 1rem;
 
-  bottom: 0.125rem;
+  width: 100%;
 
+  bottom: 0;
+
+  color: 000;
   border-radius: 12px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.75));
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(255, 255, 255, 0.5));
 }
 
 .Project-Foot h1 {
