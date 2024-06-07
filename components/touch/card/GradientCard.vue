@@ -1,20 +1,51 @@
 <template>
   <div class="GradientCard">
+    <div class="GradientCard-Container" />
+
     <slot />
   </div>
 </template>
 
 <style>
+.GradientCard-Container {
+  position: absolute;
+
+  top: 0.25%;
+  left: 0.25%;
+
+  width: 100%;
+  height: 99.5%;
+
+  overflow: hidden;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.GradientCard-Container::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+
+  top: 0.5%;
+  left: 0.5%;
+
+  width: 99%;
+  height: 99%;
+
+  opacity: 0.9;
+  border-radius: 12px;
+  background: var(--major-color);
+  backdrop-filter: blur(18px) saturate(180%) brightness(120%);
+}
+
 .GradientCard {
   position: relative;
-  padding: .5rem;
-  display: flex;
-
-  flex-direction: column;
+  padding: 0.5rem;
 
   /* width: 420px; */
   /* min-width: 30rem; */
-  min-height: 35rem;
+  /* min-height: 15rem; */
+  height: auto;
 
   cursor: pointer;
   /* overflow: hidden; */
@@ -39,16 +70,16 @@
   content: "";
   position: absolute;
 
-  width: 102%;
-  height: 102%;
+  width: 101%;
+  height: 101%;
 
-  top: -1%;
-  left: -1%;
+  top: -0.5%;
+  left: -0.5%;
 
   border-radius: 12px;
 
   opacity: 0;
-  transition: .35s;
+  transition: 0.35s;
   animation: animate 2.5s linear infinite;
   background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
 }
@@ -65,10 +96,10 @@
   left: 50%;
 
   opacity: 0;
-  transition: .5s;
+  transition: 0.5s;
   border-radius: 12px;
   filter: blur(5rem);
-  transform: translateX(-50%) scale(.8);
+  transform: translateX(-50%) scale(0.8);
   animation: animate 2.5s linear infinite;
   background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
 }

@@ -73,9 +73,10 @@ function redirect(url: string) {
         style="width: 0; opacity: 0"
         @click="redirect(item.url)"
       >
-        <div class="Project-Img">
+        <img class="Project-Img" :src="item.logo" :alt="item.title">
+        <!-- <div class="Project-Img">
           <img :src="item.logo" :alt="item.title">
-        </div>
+        </div> -->
 
         <div class="Project-Foot">
           <h1>{{ item.title }}</h1>
@@ -101,16 +102,29 @@ function redirect(url: string) {
   position: relative;
 
   width: 100%;
-  height: 60%;
+
+  border-radius: 12px;
 }
 
 .Project-Foot {
-  padding-top: 1rem;
+  z-index: 1;
+  position: absolute;
+  padding: 1rem 1rem;
+
+  bottom: 0.125rem;
+
+  border-radius: 12px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.75));
 }
 
 .Project-Foot h1 {
   font-size: 18px;
   font-weight: 600;
+}
+
+.Project-Foot p {
+  font-size: 16px;
+  opacity: 0.75;
 }
 
 .Project-Img img {
@@ -125,6 +139,7 @@ function redirect(url: string) {
 
 .Projects-Content {
   position: relative;
+  padding: 1rem;
 
   left: 10%;
 

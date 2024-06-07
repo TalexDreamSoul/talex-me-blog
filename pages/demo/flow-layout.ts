@@ -9,11 +9,9 @@
 //   }
 // }
 
-const EL_WIDTH = 450
+const EL_WIDTH = 550
 
 function calculateMaxColumnsAndGap(containerWidth: number) {
-  console.log('e', containerWidth)
-
   const columnWidth = EL_WIDTH
   const minGap = 10
   if (containerWidth <= columnWidth)
@@ -23,7 +21,6 @@ function calculateMaxColumnsAndGap(containerWidth: number) {
 
   for (; columns > 1; --columns) {
     const width = columns * columnWidth + (columns - 1) * minGap
-    console.log('EEE', width, columns)
     if (width <= containerWidth)
       break
   }
@@ -36,8 +33,7 @@ function calculateMaxColumnsAndGap(containerWidth: number) {
 export function flowLayout(container: HTMLElement) {
   // get width
   const { width } = container.getBoundingClientRect()
-  const { maxColumns, gap } = calculateMaxColumnsAndGap(width)
-  console.log('asassa', maxColumns, gap)
+  const { maxColumns, gap } = calculateMaxColumnsAndGap(width - 10)
 
   const map = new Map<number, {
     ind: number
@@ -49,7 +45,7 @@ export function flowLayout(container: HTMLElement) {
   for (let i = 0; i < maxColumns; ++i) {
     map.set(i, {
       ind: i,
-      left: i * EL_WIDTH + gap * i,
+      left: i * EL_WIDTH + gap * i + 5,
       height: 0,
       ele: [],
     })
@@ -66,7 +62,7 @@ export function flowLayout(container: HTMLElement) {
     Object.assign(ele.style, {
       position: 'absolute',
       width: `${EL_WIDTH}px`,
-      top: `${target[0].height}px`,
+      top: `${target[0].height + 10}px`,
       left: `${target[0].left}px`,
       opacity: '1',
       transition: '.25s',
@@ -77,12 +73,23 @@ export function flowLayout(container: HTMLElement) {
     container.style.height = `${target[0].height}px`
   }
 
+  let timer: any
+
   for (const el of container.childNodes) {
     const ele = el as HTMLElement
 
     if (!ele.dataset?.item)
       continue
 
+    const { height } = useElementBounding(ele)
+
     _pushEl(ele)
+
+    watch(() => height.value, () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        flowLayout(container)
+      }, 200)
+    })
   }
 }
