@@ -87,21 +87,29 @@ function handleScroll() {
   const thisTop = window.scrollY
 
   const _article = window._article
-  if (thisTop < lastTop || thisTop < 100 || !_article) {
+  if ((lastTop > thisTop && lastTop - thisTop > 30) || thisTop < 50 || !_article) {
     article.value.enable = false
+    lastTop = thisTop
+
+    setTimeout(() => {
+      article.value.enable = false
+    }, 1000)
   }
   else {
-    const maxHeight = document.body.clientHeight
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+    const scrollHeight = document.documentElement.scrollHeight
+    const clientHeight = document.documentElement.clientHeight
+    const scrollPercent = scrollTop / (scrollHeight - clientHeight)
+    // const maxHeight = document.body.clientHeight
 
-    const per = thisTop / (maxHeight - 950)
+    // const per = thisTop / (maxHeight - 950)
 
-    article.value._per = per
+    article.value._per = scrollPercent
 
     Object.assign(article.value, _article)
     article.value.enable = true
+    lastTop = thisTop
   }
-
-  lastTop = thisTop
 }
 
 function refreshFocus(route) {
@@ -158,7 +166,7 @@ function handleClick(index, path) {
               class="percentage-bar"
               :style="`width: ${Math.round(article._per * 100)}%`"
             >
-              <span>{{ Math.round(article._per * 100) }}%</span>
+              <span :class="{ outside: Math.round(article._per * 100) < 30 }">{{ Math.round(article._per * 100) }}%</span>
             </div>
           </div>
         </div>
@@ -218,10 +226,16 @@ function handleClick(index, path) {
 .percentage-bar span {
   position: absolute;
 
+  top: 1.5px;
   right: 5px;
-  top: 2px;
 
   font-size: 12px;
+  transition: 0.25s;
+}
+
+.percentage-bar span.outside {
+  top: 0.5px;
+  right: -28px;
 }
 
 .article .Header-Default {
