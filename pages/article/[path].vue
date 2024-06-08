@@ -1,51 +1,54 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 // import localeCh from 'dayjs/locale/zh-cn'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import relativeTime from "dayjs/plugin/relativeTime";
 
-import { articleManager, useArticle } from '~/composables/article'
-import { useSticky } from '~/composables/sticky'
-import { useDynamicCode } from '~/composables/hook'
+import { articleManager, useArticle } from "~/composables/article";
+import { useSticky } from "~/composables/sticky";
+import { useDynamicCode } from "~/composables/hook";
 
 definePageMeta({
-  layout: 'home',
-  select: 'Contents',
-})
+  layout: "home",
+  select: "Contents",
+});
 
-const route = useRoute<'article-path'>()
-const router = useRouter()
-const article = reactive<any>({})
-const addon = ref<HTMLElement | null>(null)
-const aside = ref<HTMLElement | null>(null)
+const route = useRoute<"article-path">();
+const router = useRouter();
+const article = reactive<any>({});
+const addon = ref<HTMLElement | null>(null);
+const aside = ref<HTMLElement | null>(null);
 const speaker = ref<any>({
   utter: null,
   play: false,
-})
+});
+
+const [mobileAsideStatus, toggleAside] = useToggle();
+const lockScroll = useScrollLock(globalThis.document);
+syncRef(mobileAsideStatus, lockScroll);
 
 function toggleSpeak() {
   if (!speaker.value.utter)
-    speaker.value.utter = new SpeechSynthesisUtterance(article.body)
+    speaker.value.utter = new SpeechSynthesisUtterance(article.body);
 
   if (!speaker.value.play) {
-    window.speechSynthesis.speak(speaker.value.utter)
-    speaker.value.play = true
-  }
-  else {
-    window.speechSynthesis.pause()
-    speaker.value.play = false
+    window.speechSynthesis.speak(speaker.value.utter);
+    speaker.value.play = true;
+  } else {
+    window.speechSynthesis.pause();
+    speaker.value.play = false;
   }
 }
 
 onMounted(async () => {
   try {
-    const data = await articleManager.getArticle(decodeURIComponent(route.params.path))
+    const data = await articleManager.getArticle(decodeURIComponent(route.params.path));
     // const data = await useArticle(decodeURIComponent(route.params.path), '')
 
-    Object.assign(article, data)
+    Object.assign(article, data);
 
     // @ts-expect-error no need
-    window._article = article
+    window._article = article;
 
     // // get header clientHeight
     // const header = document.querySelector('.Home-Header') as HTMLElement
@@ -54,64 +57,65 @@ onMounted(async () => {
     // useSticky(aside.value!, header.clientHeight + aside.value!.offsetTop)
 
     setTimeout(() => {
-      window._effectResize?.()
-    }, 200)
+      window._effectResize?.();
+    }, 200);
+  } catch (e) {
+    article.error = e;
+    console.error(e);
   }
-  catch (e) {
-    article.error = e
-    console.error(e)
-  }
-})
+});
 
 function handleOutline(outline: object) {
-  article.outline = outline
+  article.outline = outline;
 }
 
 // dayjs.locale(localeCh)
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
-const timeStr = computed(() => dayjs(article?.time).fromNow())
-const readTime = computed(() => Math.ceil(article.body?.length / 400))
+const timeStr = computed(() => dayjs(article?.time).fromNow());
+const readTime = computed(() => Math.ceil(article.body?.length / 400));
 
 const asides = reactive([
   {
-    title: 'BaCK',
-    icon: 'i-carbon-arrow-left',
+    title: "BaCK",
+    icon: "i-carbon-arrow-left",
     func: () => {
       // Check if can history back
-      if (window.history?.state?.back)
-        window.history.go(-1)
-
-      else
-        router.push('/contents')
+      if (window.history?.state?.back) window.history.go(-1);
+      else router.push("/contents");
     },
   },
   {
-    title: 'Star',
-    icon: 'i-carbon-star',
+    title: "Star",
+    icon: "i-carbon-star",
     func: () => {
-      window.open('https://github.com/TalexDreamSoul/talex-me-blog')
+      window.open("https://github.com/TalexDreamSoul/talex-me-blog");
     },
   },
   {
-    title: 'Speak',
-    icon: 'i-carbon-user-speaker',
+    title: "Speak",
+    icon: "i-carbon-user-speaker",
     func: toggleSpeak,
   },
   {
-    title: 'Share',
-    icon: 'i-carbon-share',
+    title: "Share",
+    icon: "i-carbon-share",
     func: () => {
-      useDynamicCode(location.href)
+      useDynamicCode(location.href);
     },
   },
-])
+]);
 </script>
 
 <template>
   <div class="ArticleIndex">
     <div ref="aside" relative h-full class="Aside only-pc-display">
-      <div v-for="(item, index) in asides" :key="index" class="Aside-Item" @click="item.func">
+      <div
+        v-for="(item, index) in asides"
+        :key="index"
+        class="Aside-Item"
+        @click="item.func"
+      >
         <p :class="item.icon" />
         <span>{{ item.title }}</span>
       </div>
@@ -126,9 +130,7 @@ const asides = reactive([
           <span v-else class="waiting" />
         </h1>
         <div v-if="article.header" mt-2 class="Main-Header-Tags" flex items-center gap-4>
-          <span class="copyright tag">
-            Original
-          </span>
+          <span class="copyright tag"> Original </span>
           <span class="author">
             {{ article.header.author }}
           </span>
@@ -149,9 +151,7 @@ const asides = reactive([
 
           <div flex gap-1>
             <span mt-.5 class="i-carbon:alarm" />
-            <span class="time" op-75>
-              Read about {{ readTime }} minutes
-            </span>
+            <span class="time" op-75> Read about {{ readTime }} minutes </span>
           </div>
         </div>
         <div v-else mt-2 w-3xl flex items-center gap-4>
@@ -160,37 +160,59 @@ const asides = reactive([
       </div>
       <div v-if="article.error" class="Main-Error">
         Cannot find target page.
-        <br>
+        <br />
         <p>{{ article.error }}</p>
       </div>
-      <ArticleMilkContent v-else-if="article.body" :content="article.body" @outline="handleOutline" />
+      <ArticleMilkContent
+        v-else-if="article.body"
+        :content="article.body"
+        @outline="handleOutline"
+      />
 
       <div class="Main-Copyright">
         <p>Copyright © 2024 {{ article.header?.author }}. All rights reserved.</p>
         <p>Except this article said above, all rights are reserved.</p>
-        <p>Reproduction and plagiarism of this article in any form are strictly prohibited</p>
-        <p>The article is distributed under the AGPL (GNU Affero General Public License)</p>
-        <p>on an "AS IS" basis, without any warranties or conditions, either express or implied.</p>
+        <p>
+          Reproduction and plagiarism of this article in any form are strictly prohibited
+        </p>
+        <p>
+          The article is distributed under the AGPL (GNU Affero General Public License)
+        </p>
+        <p>
+          on an "AS IS" basis, without any warranties or conditions, either express or
+          implied.
+        </p>
         <p>For detailed permissions and restrictions, please refer to the license.</p>
         <p>
-          For more information, please visit <a
-            op-50 style="color: red"
-            href="https://github.com/TalexDreamSoul/tds.io"
-          >tds.io</a>
+          For more information, please visit
+          <a op-50 style="color: red" href="https://github.com/TalexDreamSoul/tds.io"
+            >tds.io</a
+          >
         </p>
       </div>
     </div>
 
-    <div class="Addon-Infer">
-      1
-    </div>
+    <div
+      :class="{ float: mobileAsideStatus }"
+      class="Addon-Infer only-pe-display"
+      @click="toggleAside()"
+      v-text="`touch`"
+    />
 
-    <div ref="addon" class="Addon only-pc-display">
+    <div ref="addon" class="Addon" :class="{ float: mobileAsideStatus }">
       <div v-if="article.header" class="Box">
         <p>RELATIVE TAGS</p>
         <span
-          v-for="(tag, index) in article.tags" :key="index" style="box-shadow: 1px 1px 2px 1px #F4BF7580;background-color: #F4BF7540;color: #A8A8A8" mr-2
-          op-75 class="tag"
+          v-for="(tag, index) in article.tags"
+          :key="index"
+          style="
+            box-shadow: 1px 1px 2px 1px #f4bf7580;
+            background-color: #f4bf7540;
+            color: #a8a8a8;
+          "
+          mr-2
+          op-75
+          class="tag"
         >
           {{ tag }}
         </span>
@@ -217,16 +239,63 @@ const asides = reactive([
 
       <div v-if="article?.header?.ai_generated" class="Box">
         <p>AI ASSISTANT</p>
-        <span v-if="article?.header?.ai_generated === 'verified'" font-bold color-yellow-600 op-50>This article is
-          generated by AI or helped with AI, but was verified manually.</span>
-        <span v-else font-bold color-red-800 op-75>This article is generated by AI or helped with AI, please note to
-          distinguish information.</span>
+        <span
+          v-if="article?.header?.ai_generated === 'verified'"
+          font-bold
+          color-yellow-600
+          op-50
+          >This article is generated by AI or helped with AI, but was verified
+          manually.</span
+        >
+        <span v-else font-bold color-red-800 op-75
+          >This article is generated by AI or helped with AI, please note to distinguish
+          information.</span
+        >
       </div>
     </div>
   </div>
 </template>
 
 <style>
+.Addon-Infer::before,
+.Addon-Infer::after {
+  content: "";
+  position: absolute;
+
+  top: 50%;
+  right: 5px;
+
+  width: 5px;
+  height: 20px;
+
+  border-radius: 8px;
+  background-color: var(--text-color);
+}
+
+.Addon-Infer::before {
+  transform: translate(50%, -50%) translateY(-8px) rotate(-15deg);
+}
+
+.Addon-Infer::after {
+  transform: translate(50%, -50%) translateY(8px) rotate(15deg);
+}
+
+.Addon-Infer {
+  position: sticky;
+
+  top: 50%;
+
+  height: 100px;
+  width: 10px;
+
+  color: transparent;
+  transform: translate(-20px, -50%);
+}
+
+.Addon-Infer.float {
+  transform: translate(-20px, -50%) translateX(-70vw);
+}
+
 .tag {
   box-shadow: 1px 1px 2px 1px #afe7c2;
 }
@@ -237,12 +306,12 @@ const asides = reactive([
   /* font-weight: 600; */
   text-indent: 1.25rem;
 
-  opacity: .9;
+  opacity: 0.9;
   text-shadow: 1px -1px #00000080, -1px 1px #111, 5px 5px 5px #20202080;
 }
 
 .dark .Main-Header-Title {
-  text-shadow: 1px -1px #ffffff80, -1px 1px #AAA, 5px 5px 5px #80808080;
+  text-shadow: 1px -1px #ffffff80, -1px 1px #aaa, 5px 5px 5px #80808080;
 }
 
 .Main-Header-Title::before {
@@ -252,7 +321,7 @@ const asides = reactive([
   top: 10%;
   left: 0;
   height: 80%;
-  width: .25rem;
+  width: 0.25rem;
 
   border-radius: 50px;
   box-shadow: 2px 2px 5px 1px var(--theme-color);
@@ -260,8 +329,8 @@ const asides = reactive([
 }
 
 .Main-Copyright {
-  color: #AeAeAe;
-  font-size: .75rem;
+  color: #aeaeae;
+  font-size: 0.75rem;
 }
 
 .Aside .Aside-Item {
@@ -288,7 +357,7 @@ const asides = reactive([
 .Aside .Aside-Item span {
   opacity: 0;
 
-  transition: all .25s;
+  transition: all 0.25s;
   transform: translateY(-5px);
 }
 
@@ -303,9 +372,9 @@ const asides = reactive([
 }
 
 .Aside .Aside-Item:hover p {
-  opacity: .75;
+  opacity: 0.75;
 
-  transform: scale(.75) translateY(-2.5px);
+  transform: scale(0.75) translateY(-2.5px);
 }
 
 .Aside .Aside-Item p {
@@ -313,7 +382,7 @@ const asides = reactive([
 
   opacity: 1;
 
-  transition: all .25s;
+  transition: all 0.25s;
   transform: translateY(10px);
 }
 
@@ -356,11 +425,11 @@ const asides = reactive([
 }
 
 .ArticleIndex .Addon .Box p {
-  opacity: .75;
+  opacity: 0.75;
 
   font-weight: 600;
 
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .ArticleIndex .Addon .Box {
@@ -392,24 +461,14 @@ const asides = reactive([
   height: calc(100% + 5.5rem);
 
   transform: translateX(-50%);
-
-}
-
-.Addon-Infer {
-  position: sticky;
-
-  right: 0;
-
-  top: 50%;
-
-  transform: translateY(-50%);
 }
 
 @media (max-width: 768px) {
   .ArticleIndex {
+    gap: 0;
     padding-top: 0;
 
-    width: 100%;
+    width: calc(100% + 12px);
     min-width: unset;
   }
 
@@ -418,11 +477,33 @@ const asides = reactive([
     /* flex-direction: column; */
 
     align-items: self-start;
-    zoom: .65;
+    zoom: 0.65;
   }
 
   .MilkContent {
     max-width: unset !important;
+  }
+
+  .ArticleIndex .Addon {
+    z-index: 3;
+    position: absolute;
+    padding: 0 1rem;
+
+    width: 70%;
+    height: 100%;
+
+    top: 0;
+    right: -100%;
+
+    color: var(--text-color);
+    transition: 0.25s;
+    box-sizing: border-box;
+    background-color: var(--major-color-light);
+    backdrop-filter: brightness(110%) blur(18px);
+  }
+
+  .ArticleIndex .Addon.float {
+    right: 0;
   }
 }
 </style>

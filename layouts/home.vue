@@ -317,7 +317,7 @@ function handleClick(index, path) {
 
 @media (max-width: 768px) {
   .Home-Header {
-    position: sticky;
+    /* position: sticky; */
   }
 }
 </style>
