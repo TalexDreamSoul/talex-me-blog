@@ -14,7 +14,7 @@ const contactLists = reactive([
 </script>
 
 <template>
-  <div class="Index">
+  <div class="Index" text-left>
     <h1 my-6 font-size-8 font-bold class="fadein" style="--d: 0s">
       TaGzxia
     </h1>

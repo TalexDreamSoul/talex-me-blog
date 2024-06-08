@@ -1,99 +1,110 @@
 <script setup lang="ts">
-import { articleManager, useListsLocal } from '~/composables/article'
+import { articleManager, useListsLocal } from "~/composables/article";
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 const view = ref<{
-  path: string
-  list: any[]
+  path: string;
+  list: any[];
 }>({
-  path: '',
+  path: "",
   list: [],
-},
-)
+});
 
 definePageMeta({
-  layout: 'home',
-  select: 'Contents',
-})
+  layout: "home",
+  select: "Contents",
+});
 
 async function refreshList() {
-  view.value.list = []
+  view.value.list = [];
 
   setTimeout(async () => {
-    view.value.path = (route.query.path || 'personal') as string
+    view.value.path = (route.query.path || "personal") as string;
 
-    const list = await articleManager.getListsLocal(view.value.path)
+    const list = await articleManager.getListsLocal(view.value.path);
 
-    view.value.list = list
-  }, 100)
+    view.value.list = list;
+  }, 100);
 }
 
-onMounted(refreshList)
-router.afterEach(refreshList)
+onMounted(refreshList);
+router.afterEach(refreshList);
 
 function calcReadingTime(len: number) {
-  return Math.ceil(len / 400)
+  return Math.ceil(len / 400);
 }
 
 async function handleClick(item: any) {
-  const directPath = `${view.value.path}/${item.name}`
+  const directPath = `${view.value.path}/${item.name}`;
 
   if (item.isDirectory) {
     await router.push({
       query: {
         path: directPath,
       },
-    })
+    });
 
-    await refreshList()
-  }
-  else {
-    await router.push(`/article/${encodeURIComponent(directPath)}`)
+    await refreshList();
+  } else {
+    await router.push(`/article/${encodeURIComponent(directPath)}`);
   }
 }
 
 async function handleBack() {
-  const path = view.value.path
+  const path = view.value.path;
 
-  const _path = path.replace(`/${path.split('/').at(-1)}`, '')
+  const _path = path.replace(`/${path.split("/").at(-1)}`, "");
 
   await router.push({
     query: {
       path: _path,
     },
-  })
+  });
 
-  await refreshList()
+  await refreshList();
 }
 </script>
 
 <template>
   <div class="Contents">
-    <aside v-if="0">
-      THIS IS A DEMO ASIDE.
-    </aside>
+    <aside v-if="0">THIS IS A DEMO ASIDE.</aside>
 
     <div class="Main">
       <div
-        v-for="(item, index) in view.list" :key="index" my-4 flex class="Main-Item fadein"
-        :style="`--d: ${index * .025}s`" @click="handleClick(item)"
+        v-for="(item, index) in view.list"
+        :key="index"
+        my-4
+        flex
+        class="Main-Item fadein"
+        :style="`--d: ${index * 0.025}s`"
+        @click="handleClick(item)"
       >
         <span mr-1 mt-.5>
           <i v-if="!item.isDirectory" i-carbon-document block />
           <i v-else i-carbon-folder block />
         </span>
         {{ item.name }}
-        <span v-if="!item.isDirectory" class="tag" style=";transform: scale(.75);opacity: .25">
+        <span
+          v-if="!item.isDirectory"
+          class="tag"
+          style="transform: scale(0.75); opacity: 0.25"
+        >
           {{ calcReadingTime(item.size) }} min
         </span>
-        <span v-if="item.cpp" class="tag" style="background-color: #FFD140;transform: scale(.75);opacity: .25">
+        <span
+          v-if="item.cpp"
+          class="tag"
+          style="background-color: #ffd140; transform: scale(0.75); opacity: 0.25"
+        >
           CODES
         </span>
       </div>
 
       <div
-        v-if="view.path.includes('/')" class="Main-Item fadein" :style="`--d: ${(view.list.length * .025) + .5}s`"
+        v-if="view.path.includes('/')"
+        class="Main-Item fadein"
+        :style="`--d: ${view.list.length * 0.025 + 0.5}s`"
         @click="handleBack"
       >
         cd ..
@@ -122,20 +133,21 @@ async function handleBack() {
 .Main-Item {
   display: flex;
 
+  height: 24px;
   color: var(--text-color-light);
 
   cursor: pointer;
 
+  overflow: hidden;
   justify-content: start;
   align-items: center;
 }
 
 .fadein {
-
   opacity: 0;
   transform: translateY(5px);
 
-  animation: fade .35s var(--d) forwards ease-out;
+  animation: fade 0.35s var(--d) forwards ease-out;
 }
 
 .Contents aside {
@@ -146,9 +158,9 @@ async function handleBack() {
 
 .Contents .Main {
   position: relative;
-  padding: 8px 10rem;
+  display: flex;
 
-  flex: 1;
+  flex-direction: column;
 
   width: auto;
 
@@ -166,21 +178,17 @@ async function handleBack() {
 
 .Contents {
   position: relative;
-  padding-top: 2rem;
-
-  display: flex;
-
-  gap: 2rem;
+  margin: 2rem 1rem;
 
   height: calc(100% + 5.5rem);
 
   left: 50%;
-  min-width: 30%;
-  max-width: 65ch;
+  width: 10%;
+  /* max-width: 50%; */
+  min-width: 250px;
 
   box-sizing: border-box;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateX(-1rem);
   /* height: auto; */
-
 }
 </style>

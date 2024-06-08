@@ -44,6 +44,7 @@ const menus = reactive({
       icon: 'i-carbon-user-sponsor',
     },
     {
+      showOnlyPc: true,
       label: 'Demo',
       path: '/demo',
       icon: 'i-carbon-ibm-cloud-security-compliance-center-workload-protection',
@@ -148,7 +149,7 @@ function handleClick(index, path) {
           </ul>
           <ul class="only-pe-display" h-16 flex items-center>
             <li
-              v-for="(item, index) in menus.list"
+              v-for="(item, index) in [...menus.list].filter((item) => !item.showOnlyPc)"
               :key="index"
               :class="item.icon"
               :style="`--d: ${(index + 1) * 0.075}s;color: ${
@@ -317,10 +318,6 @@ function handleClick(index, path) {
 @media (max-width: 768px) {
   .Home-Header {
     position: sticky;
-  }
-
-  .Contents .Main {
-    padding: 0 4rem;
   }
 }
 </style>

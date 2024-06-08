@@ -9,7 +9,9 @@
 //   }
 // }
 
-const EL_WIDTH = 550
+const windowSize = useWindowSize()
+
+let EL_WIDTH = 550
 
 function calculateMaxColumnsAndGap(containerWidth: number) {
   const columnWidth = EL_WIDTH
@@ -31,6 +33,17 @@ function calculateMaxColumnsAndGap(containerWidth: number) {
 }
 
 export function flowLayout(container: HTMLElement) {
+  EL_WIDTH = (windowSize.width.value < 768 ? windowSize.width.value * 0.8 : 550)
+
+  let timer: any
+
+  timer = setTimeout(() => {
+    watch(
+      () => windowSize.width.value + windowSize.height.value,
+      () => flowLayout(container),
+    )
+  }, 200)
+
   // get width
   const { width } = container.getBoundingClientRect()
   const { maxColumns, gap } = calculateMaxColumnsAndGap(width - 10)
@@ -72,8 +85,6 @@ export function flowLayout(container: HTMLElement) {
 
     container.style.height = `${target[0].height}px`
   }
-
-  let timer: any
 
   for (const el of container.childNodes) {
     const ele = el as HTMLElement

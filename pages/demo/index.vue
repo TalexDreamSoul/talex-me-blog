@@ -47,11 +47,6 @@ onMounted(() => {
   flowLayout(container.value)
 })
 
-watch(
-  () => width.value + height.value,
-  () => flowLayout(container.value),
-)
-
 function redirect(url: string) {
   console.log(url)
 }
@@ -103,6 +98,7 @@ function redirect(url: string) {
 
   width: 100%;
 
+  object-fit: cover;
   border-radius: 12px;
 }
 
@@ -120,10 +116,11 @@ html.dark .Project-Foot {
 
   bottom: 0;
 
-  color: 000;
-  border-radius: 12px;
+  color: #fff;
   box-sizing: border-box;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(255, 255, 255, 0.5));
+  mix-blend-mode: difference;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 10%, rgba(255, 255, 255, 0.5));
 }
 
 .Project-Foot h1 {
