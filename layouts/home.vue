@@ -129,10 +129,9 @@ function handleClick(index, path) {
 
 <template>
   <main :class="{ article: article.enable }" relative h-full w-full>
-    <!-- sticky -->
-    <div top-0 w-full flex justify-between class="Home-Header">
-      <div flex items-center pl-4 font-bold>
-        TalexMeBlog
+    <div top-0 w-full flex justify-between class="Home-Header px-4">
+      <div flex items-center font-bold>
+        <CommonLogo />
       </div>
       <div flex>
         <div class="Header-Default">
@@ -177,22 +176,25 @@ function handleClick(index, path) {
     <div class="Home-Main" relative h-full>
       <slot />
       <div class="mx-auto mt-5 text-center text-sm opacity-25">
-        <Suspense>
-          <ClientOnly>
-            <PageView v-if="online" />
-            <div v-else>
-              You're offline
-            </div>
-          </ClientOnly>
-          <template #fallback>
-            <div italic op50>
-              <span animate-pulse>Loading...</span>
-            </div>
-          </template>
-        </Suspense>
-        Powered by TalexTouch template, extends by Vitesse.
-        <br>
-        Released under MIT License. Copyright TalexDreamSoul 2024.
+        <div class="fadein op-0" style="--d: 1s">
+          <Suspense>
+            <ClientOnly>
+              <PageView v-if="online" />
+              <div v-else>
+                You're offline
+              </div>
+            </ClientOnly>
+            <template #fallback>
+              <div italic op50>
+                <span animate-pulse>Loading...</span>
+              </div>
+            </template>
+          </Suspense>
+
+          Powered by TalexTouch template, extends by Vitesse.
+          <br>
+          Released under MIT License. Copyright TalexDreamSoul 2025.
+        </div>
       </div>
     </div>
   </main>
@@ -306,18 +308,24 @@ function handleClick(index, path) {
   top: 0;
 
   box-sizing: border-box;
+  animation: headerJoin 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-  background-color: #ffffff50;
-  backdrop-filter: blur(16px) saturate(180%) brightness(120%);
+  /* background-color: #ffffff50; */
+  /* backdrop-filter: blur(16px) saturate(180%) brightness(120%); */
 }
 
-.dark .Home-Header {
-  background-color: #00000050;
-}
-
-@media (max-width: 768px) {
-  .Home-Header {
-    /* position: sticky; */
+@keyframes headerJoin {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
+
+/* .dark .Home-Header {
+  background-color: #00000050;
+} */
 </style>
