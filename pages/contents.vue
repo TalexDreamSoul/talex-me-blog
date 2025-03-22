@@ -1,74 +1,78 @@
 <script setup lang="ts">
-import { articleManager, useListsLocal } from "~/composables/article";
+import { articleManager, useListsLocal } from '~/composables/article'
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 const view = ref<{
-  path: string;
-  list: any[];
+  path: string
+  list: any[]
 }>({
-  path: "",
+  path: '',
   list: [],
-});
+},
+)
 
 definePageMeta({
-  layout: "home",
-  select: "Contents",
-});
+  layout: 'home',
+  select: 'Contents',
+})
 
 async function refreshList() {
-  view.value.list = [];
+  view.value.list = []
 
   setTimeout(async () => {
-    view.value.path = (route.query.path || "personal") as string;
+    view.value.path = (route.query.path || 'personal') as string
 
-    const list = await articleManager.getListsLocal(view.value.path);
+    const list = await articleManager.getListsLocal(view.value.path)
 
-    view.value.list = list;
-  }, 100);
+    view.value.list = list
+  }, 100)
 }
 
-onMounted(refreshList);
-router.afterEach(refreshList);
+onMounted(refreshList)
+router.afterEach(refreshList)
 
 function calcReadingTime(len: number) {
-  return Math.ceil(len / 400);
+  return Math.ceil(len / 400)
 }
 
 async function handleClick(item: any) {
-  const directPath = `${view.value.path}/${item.name}`;
+  const directPath = `${view.value.path}/${item.name}`
 
   if (item.isDirectory) {
     await router.push({
       query: {
         path: directPath,
       },
-    });
+    })
 
-    await refreshList();
-  } else {
-    await router.push(`/article/${encodeURIComponent(directPath)}`);
+    await refreshList()
+  }
+  else {
+    await router.push(`/article/${encodeURIComponent(directPath)}`)
   }
 }
 
 async function handleBack() {
-  const path = view.value.path;
+  const path = view.value.path
 
-  const _path = path.replace(`/${path.split("/").at(-1)}`, "");
+  const _path = path.replace(`/${path.split('/').at(-1)}`, '')
 
   await router.push({
     query: {
       path: _path,
     },
-  });
+  })
 
-  await refreshList();
+  await refreshList()
 }
 </script>
 
 <template>
   <div class="Contents">
-    <aside v-if="0">THIS IS A DEMO ASIDE.</aside>
+    <aside v-if="0">
+      THIS IS A DEMO ASIDE.
+    </aside>
 
     <div class="Main">
       <div
@@ -77,7 +81,7 @@ async function handleBack() {
         my-4
         flex
         class="Main-Item fadein"
-        :style="`--d: ${index * 0.025}s`"
+        :style="`--d: ${index * 0.045}s`"
         @click="handleClick(item)"
       >
         <span mr-1 mt-.5>
@@ -104,7 +108,7 @@ async function handleBack() {
       <div
         v-if="view.path.includes('/')"
         class="Main-Item fadein"
-        :style="`--d: ${view.list.length * 0.025 + 0.5}s`"
+        :style="`--d: ${view.list.length * 0.045 + 0.25}s`"
         @click="handleBack"
       >
         cd ..
@@ -183,8 +187,8 @@ async function handleBack() {
   height: calc(100% + 5.5rem);
 
   left: 50%;
-  width: 10%;
-  /* max-width: 50%; */
+  width: max-content;
+  max-width: 70%;
   min-width: 250px;
 
   box-sizing: border-box;

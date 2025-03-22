@@ -175,7 +175,7 @@ function handleClick(index, path) {
     </div>
     <div class="Home-Main" relative h-full>
       <slot />
-      <div class="mx-auto mt-5 text-center text-sm opacity-25">
+      <div v-if="false" class="mx-auto mt-5 text-center text-sm opacity-25">
         <div class="fadein op-0" style="--d: 1s">
           <Suspense>
             <ClientOnly>
